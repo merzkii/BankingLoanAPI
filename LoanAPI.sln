@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanAPI", "LoanAPI\LoanAPI.csproj", "{32B0AA93-9263-4DE2-BE46-5058F3384A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{B91349CE-9955-4C2E-BB2D-3355F5FDE989}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{31AAD3DE-9208-4C51-9DFA-A12A6CA2BEF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32B0AA93-9263-4DE2-BE46-5058F3384A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B0AA93-9263-4DE2-BE46-5058F3384A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B0AA93-9263-4DE2-BE46-5058F3384A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B0AA93-9263-4DE2-BE46-5058F3384A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91349CE-9955-4C2E-BB2D-3355F5FDE989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91349CE-9955-4C2E-BB2D-3355F5FDE989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91349CE-9955-4C2E-BB2D-3355F5FDE989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91349CE-9955-4C2E-BB2D-3355F5FDE989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31AAD3DE-9208-4C51-9DFA-A12A6CA2BEF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31AAD3DE-9208-4C51-9DFA-A12A6CA2BEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31AAD3DE-9208-4C51-9DFA-A12A6CA2BEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31AAD3DE-9208-4C51-9DFA-A12A6CA2BEF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4A4BA2C-BB62-487C-9778-E82CF9C2E8BD}
+	EndGlobalSection
+EndGlobal
