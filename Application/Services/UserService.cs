@@ -1,7 +1,7 @@
 ﻿using Application.DTO;
 using Core.Entities;
 using Core.Interfaces;
-
+using SendGrid.Helpers.Errors.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,27 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
+        public Task BlockUserAsync(int userId, bool isBlocked)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserResponseDto> GetUserByIdAsync(int userId)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            if (user == null) throw new NotFoundException("User not found");
+
+            return new UserResponseDto
+            {
+                UserId = user.UserId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                MonthlyIncome = user.MonthlyIncome,
+                IsBlocked = user.IsBlocked
+            };
+        }
+
         public async Task<UserResponseDto> RegisterUserAsync(UserRequestDto userDto)
         {
             var user = new User
@@ -33,6 +54,11 @@ namespace Application.Services
 
             await _userRepository.AddUserAsync(user);
             return new UserResponseDto { UserId = user.UserId, FirstName = user.FirstName, LastName = user.LastName, Email = user.Email };
+        }
+
+        public Task UpdateUserAsync(int userId, UserRequestDto userDto)
+        {
+            throw new NotImplementedException();
         }
 
         private string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
