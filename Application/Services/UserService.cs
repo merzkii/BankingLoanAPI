@@ -12,21 +12,22 @@ namespace Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
-        public Task BlockUserAsync(int userId, bool isBlocked)
+        public async Task BlockUserAsync(int userId, bool isBlocked)
         {
-            throw new NotImplementedException();
+            var blockUser=_userService.BlockUserAsync(userId, isBlocked);
+           
         }
 
         public async Task<UserResponseDto> GetUserByIdAsync(int userId)
         {
-            var user = await _userRepository.GetUserByIdAsync(userId);
+            var user = await _userService.GetUserByIdAsync(userId);
             if (user == null) throw new NotFoundException("User not found");
 
             return new UserResponseDto
@@ -40,22 +41,7 @@ namespace Application.Services
             };
         }
 
-        public async Task<UserResponseDto> RegisterUserAsync(UserRequestDto userDto)
-        {
-            var user = new User
-            {
-                FirstName = userDto.FirstName,
-                LastName = userDto.LastName,
-                Username = userDto.Username,
-                Age = userDto.Age,
-                Email = userDto.Email,
-                Password = HashPassword(userDto.Password)
-            };
-
-            await _userRepository.AddUserAsync(user);
-            return new UserResponseDto { UserId = user.UserId, FirstName = user.FirstName, LastName = user.LastName, Email = user.Email };
-        }
-
+       
         public Task UpdateUserAsync(int userId, UserRequestDto userDto)
         {
             throw new NotImplementedException();

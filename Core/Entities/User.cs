@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace Core.Entities
         public bool IsBlocked { get; set; } = false;
         public string Password { get; set; } 
         public List<Loan> Loans { get; set; }
+        public UserRole UserRole { get; set; } = UserRole.User;
     }
 }
