@@ -47,6 +47,6 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        private string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
+        
     }
 }

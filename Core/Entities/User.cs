@@ -16,7 +16,7 @@ namespace Core.Entities
         public int Age { get; set; }
         public string Email { get; set; }
         public decimal MonthlyIncome { get; set; }
-        public bool IsBlocked { get; set; } = false;
+        public IsBlockedStatus IsBlocked { get; set; } = 0;
         public string Password { get; set; } 
         public List<Loan> Loans { get; set; }
         public UserRole UserRole { get; set; } = UserRole.User;
