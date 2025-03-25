@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.DTO.User;
 using Core.Entities;
 using Core.Interfaces;
 using SendGrid.Helpers.Errors.Model;

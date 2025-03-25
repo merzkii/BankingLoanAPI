@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    public interface ILoanInterface
+    public interface ILoanRepository
     {
         Task<Loan> GetLoanByIdAsync(int id);
         Task<IEnumerable<Loan>> GetLoansByUserIdAsync(int userId);

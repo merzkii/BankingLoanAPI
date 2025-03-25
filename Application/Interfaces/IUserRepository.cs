@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.DTO;
+using Application.DTO.User;
 namespace Core.Interfaces
 {
     public interface IUserRepository
