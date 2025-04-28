@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Loans.Queries
+namespace Application.Features.Users.Commands.Block
 {
-    class GetAllLoansQuery
+    class BlockUserCommandHandler
     {
     }
 }

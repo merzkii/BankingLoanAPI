@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Loans.Queries
+namespace Application.Features.Users.Commands.Delete
 {
-    class GetLoanByIdQuery
+    class DeleteUserCommand
     {
     }
 }

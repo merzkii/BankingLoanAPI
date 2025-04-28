@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Users.Queries
+namespace Application.Features.Loans.Commands.Update
 {
-    class GetUserByIdQuery
+    class UpdateLoanCommand
     {
     }
 }

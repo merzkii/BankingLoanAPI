@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Loans.Commands
+namespace Application.Features.Users.Commands.Update
 {
-    class DeleteLoanCommand
+    class UpdateUserCommandHandler
     {
     }
 }
