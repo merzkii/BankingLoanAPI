@@ -25,23 +25,21 @@ namespace Application.Services
            
         }
 
-        public async Task<UserResponseDto> GetUserByIdAsync(int userId)
+        public Task<bool> IsUserBlockedAsync(int userId)
         {
-            var user = await _userService.GetUserByIdAsync(userId);
-            if (user == null) throw new NotFoundException("User not found");
-
-            return new UserResponseDto
-            {
-                UserId = user.UserId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                MonthlyIncome = user.MonthlyIncome,
-                IsBlocked = user.IsBlocked
-            };
+            throw new NotImplementedException();
         }
 
-       
+        public Task<bool> IsUsernameTakenAsync(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RegisterUserAsync(UserRequestDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task UpdateUserAsync(int userId, UserRequestDto userDto)
         {
             throw new NotImplementedException();

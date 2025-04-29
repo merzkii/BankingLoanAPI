@@ -9,9 +9,9 @@ namespace Application
 {
     public interface IUserService
     {
-        
-        Task<UserResponseDto> GetUserByIdAsync(int userId);
-        Task UpdateUserAsync(int userId, UserRequestDto userDto);
+        Task RegisterUserAsync(UserRequestDto dto);
+        Task<bool> IsUserBlockedAsync(int userId);
         Task BlockUserAsync(int userId, bool isBlocked);
+        Task<bool> IsUsernameTakenAsync(string username);
     }
 }

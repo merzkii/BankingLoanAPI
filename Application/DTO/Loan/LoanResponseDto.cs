@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.Loan
 {
-    public class LoanResonseDto
+    public class LoanResponseDto
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }

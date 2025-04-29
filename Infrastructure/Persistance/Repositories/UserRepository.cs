@@ -13,23 +13,36 @@ namespace Infrastructure.Persistance.Repositories
 
             _userRepository = userRepository;
         }
-        
 
-        public Task DeleteUserAsync(int id)
+        public Task AddAsync(User user)
         {
-            return _userRepository.DeleteUserAsync(id);
+            throw new NotImplementedException();
         }
 
-        public Task<User> Register(UserRequestDto name)
+       
+        public Task DeleteAsync(int id)
         {
-            var register= _userRepository.Register(name);
-            var hash=HashPassword(name.Password);
-            return register;    
+            return _userRepository.DeleteAsync(id);
+        }
+
+        public Task<User?> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User?> GetByUsernameAsync(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(User user)
+        {
+            throw new NotImplementedException();
         }
 
         public Task UpdateUserAsync(User user)
         {
-          return _userRepository.UpdateUserAsync(user);
+          return _userRepository.UpdateAsync(user);
         }
 
         private string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password);
