@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetById
 {
-    class GetUserByIdHandler: IRequestHandler<GetUserByIdQuery, UserResponseDto>
+    public class GetUserByIdHandler: IRequestHandler<GetUserByIdQuery, UserResponseDto>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;

@@ -12,39 +12,21 @@ namespace Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserService userService)
+        public UserService(IUserRepository userRepository)
         {
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
-        public async Task BlockUserAsync(int userId, bool isBlocked)
-        {
-            var blockUser=_userService.BlockUserAsync(userId, isBlocked);
-           
-        }
+        public Task<User?> GetByIdAsync(int id) => _userRepository.GetByIdAsync(id);
+        public Task<List<User>> GetAllAsync() => _userRepository.GetAllAsync();
+        public Task<User?> GetByUsernameAsync(string username) => _userRepository.GetByUsernameAsync(username);
 
-        public Task<bool> IsUserBlockedAsync(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> IsUsernameTakenAsync(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RegisterUserAsync(UserRequestDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateUserAsync(int userId, UserRequestDto userDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        
+        public Task RegisterAsync(User user) => _userRepository.AddAsync(user);
+        public Task DeleteAsync(User user) => _userRepository.DeleteAsync(user.UserId);
+        public Task UpdateAsync(User user) => _userRepository.UpdateAsync(user);
     }
+
 }
+

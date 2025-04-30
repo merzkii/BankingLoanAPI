@@ -1,4 +1,5 @@
 ﻿using Application.DTO.User;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace Application
 {
     public interface IUserService
     {
-        Task RegisterUserAsync(UserRequestDto dto);
-        Task<bool> IsUserBlockedAsync(int userId);
-        Task BlockUserAsync(int userId, bool isBlocked);
-        Task<bool> IsUsernameTakenAsync(string username);
+        Task<User?> GetByIdAsync(int id);
+        Task<List<User>> GetAllAsync();
+        Task<User?> GetByUsernameAsync(string username);
+        Task RegisterAsync(User user);
+        Task DeleteAsync(User user);
+        Task UpdateAsync(User user);
     }
 }

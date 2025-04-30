@@ -1,4 +1,6 @@
-﻿namespace Application.DTO.User
+﻿using Core.Enums;
+
+namespace Application.DTO.User
 {
     public class UserResponseDto
     {
@@ -12,5 +14,6 @@
         public bool IsBlocked { get; set; } = false;
         public string Password { get; set; }
         public List<Core.Entities.Loan> Loans { get; set; } = new List<Core.Entities.Loan>();
+        public UserRole UserRole { get; set; }
     }
 }

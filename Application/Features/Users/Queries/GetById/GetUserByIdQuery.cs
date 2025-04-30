@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetById
 {
-    class GetUserByIdQuery: IRequest<UserResponseDto>
+    public class GetUserByIdQuery: IRequest<UserResponseDto>
     {
         public int UserId { get; set; }
         public GetUserByIdQuery(int userId)
