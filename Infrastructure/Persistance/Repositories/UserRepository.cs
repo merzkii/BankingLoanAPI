@@ -25,6 +25,11 @@ namespace Infrastructure.Persistance.Repositories
             return _userRepository.DeleteAsync(id);
         }
 
+        public Task<User?> GetByEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<User?> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
