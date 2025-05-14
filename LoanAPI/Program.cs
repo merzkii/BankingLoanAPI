@@ -13,6 +13,7 @@ using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using MediatR;
 using Application.Validations.User;
+using Microsoft.AspNet.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddValidatorsFromAssemblyContaining<UserRequestValidator>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddScoped<IPasswordHasher,PasswordHasher>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();

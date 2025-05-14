@@ -2,7 +2,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Persistance.Contexts;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistance.Repositories
 {
