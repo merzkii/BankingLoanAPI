@@ -34,4 +34,4 @@ namespace Infrastructure.Persistance.Repositories
             await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
          public async Task UpdateAsync(User user) => _context.Users.Update(user);
     }
-    }
+}

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.DTO.Loan;
+using MediatR;
 
 namespace Application.Features.Loans.Queries.GetAll
 {
-    class GetAllLoansQuery
+    public class GetAllLoansQuery : IRequest<List<LoanResponseDto>>
     {
+
     }
+    
 }

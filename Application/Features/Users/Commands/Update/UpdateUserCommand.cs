@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.Update
 {
-    class UpdateUserCommand : IRequest<UserResponseDto>
+    public class UpdateUserCommand : IRequest<UserResponseDto>
     {
         public int UserId { get; set; }
         public UserRequestDto UserData { get; set; }

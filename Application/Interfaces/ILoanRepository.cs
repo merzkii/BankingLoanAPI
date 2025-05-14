@@ -10,9 +10,11 @@ namespace Core.Interfaces
     public interface ILoanRepository
     {
         Task<Loan> GetLoanByIdAsync(int id);
+        Task<IEnumerable<Loan>> GetAllAsync();
         Task<IEnumerable<Loan>> GetLoansByUserIdAsync(int userId);
         Task AddLoanAsync(Loan loan);
         Task UpdateLoanAsync(Loan loan);
         Task DeleteLoanAsync(int id);
+        Task SaveChangesAsync();
     }
 }

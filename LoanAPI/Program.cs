@@ -2,7 +2,6 @@ using Application;
 using Application.Features.Users.Commands.Register;
 using Application.Interfaces;
 using Application.Services;
-using Application.Validations;
 using Core.Interfaces;
 using FluentValidation;
 using Infrastructure.Persistance.Contexts;
@@ -12,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Core.Entities;
 using Microsoft.AspNetCore.Identity;
+using MediatR;
+using Application.Validations.User;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,10 +22,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<ILoanService, LoanService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddValidatorsFromAssemblyContaining<UserRequestValidator>();
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();

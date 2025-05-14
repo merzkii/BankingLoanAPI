@@ -1,17 +1,10 @@
-﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.DTO.Loan;
 
 namespace Application.Interfaces
 {
-    internal interface IloanService
+    public interface ILoanService
     {
-        Task<Loan> GetLoanByIdAsync(int loanId);        
-        Task UpdateLoanAsync(int loanId, Loan loan); 
-        Task DeleteLoanAsync(int loanId);                  
-        Task BlockLoanAsync(int loanId, TimeSpan duration);
+        Task<LoanResponseDto> ApproveLoanAsync(int loanId);
+        Task<LoanResponseDto> RejectLoanAsync(int loanId);
     }
 }

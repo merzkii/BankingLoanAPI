@@ -9,7 +9,7 @@ namespace Infrastructure.Persistance.Contexts
     public class AppDbContext: Microsoft.EntityFrameworkCore.DbContext
     {
         public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
-        public System.Data.Entity.DbSet<Loan> Loans { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Loan> Loans { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
