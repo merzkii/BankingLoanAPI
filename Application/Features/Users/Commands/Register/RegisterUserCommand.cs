@@ -1,4 +1,5 @@
 ﻿using Application.DTO.Auth;
+using Core.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace Application.Features.Users.Commands.Register
         public string Email { get; set; }
         public string Password { get; set; }
         public decimal MonthlyIncome { get; set; }
+        public UserRole UserRole { get; set; } = UserRole.User;
     }
 }

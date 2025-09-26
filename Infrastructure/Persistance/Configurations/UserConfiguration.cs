@@ -27,6 +27,10 @@ namespace Infrastructure.Persistance.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
+            builder.Property(u=>u.Age)
+                .IsRequired()
+                .HasMaxLength(3);
+
             builder.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -37,9 +41,15 @@ namespace Infrastructure.Persistance.Configurations
 
             
             builder.Property(u => u.MonthlyIncome)
-                .HasPrecision(18, 2); 
+                .HasPrecision(18, 2);
 
-           
+            builder.Property(u => u.UserRole)
+                .IsRequired()
+                .HasConversion<string>()
+                .HasMaxLength(20);
+
+
+
             builder.Property(u => u.IsBlocked)
                 .HasDefaultValue(false);
 
