@@ -33,6 +33,7 @@ namespace LoanAPI.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
+        [Authorize]
         public async Task<IActionResult> Create(CreateLoanCommand command)
         {
             var result = await _mediator.Send(command);

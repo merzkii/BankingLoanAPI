@@ -33,7 +33,17 @@ namespace Application.Features.Loans.Commands.CreateLoan
 
         public async Task<LoanResponseDto> Handle(CreateLoanCommand request, CancellationToken cancellationToken)
         {
-            var userId = int.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (_httpContextAccessor.HttpContext?.User == null)
+            {
+                throw new InvalidOperationException("HttpContext or User is not available.");
+            }
+
+            var userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                throw new InvalidOperationException("User ID claim is missing or invalid.");
+            }
+
             var user = await _userRepository.GetByIdAsync(userId);
 
             if (user == null || user.IsBlocked)

@@ -20,7 +20,16 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task AddLoanAsync(Loan loan)
         {
-            await _context.Loans.AddAsync(loan); 
+            try
+            {
+                await _context.Loans.AddAsync(loan);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                throw;
+            }
         }
 
         public async Task DeleteLoanAsync(int id)
