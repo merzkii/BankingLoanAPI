@@ -4,6 +4,8 @@ using Application.Features.Loans.Commands.DeleteLoan;
 using Application.Features.Loans.Commands.Reject;
 using Application.Features.Loans.Commands.Update;
 using Application.Features.Loans.Queries.GetAll;
+using Application.Features.Loans.Queries.GetById;
+using Application.Features.Users.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +25,7 @@ namespace LoanAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _mediator.Send(new GetUserByIdQuery(id));
+            var result = await _mediator.Send(new GetLoanByIdQuery(id));
             return Ok(result);
         }
         [HttpGet]

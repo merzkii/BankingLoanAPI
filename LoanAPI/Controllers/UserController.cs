@@ -58,16 +58,9 @@ namespace LoanAPI.Controllers
             await _mediator.Send(new BlockUserCommand { UserId = id });
             return NoContent();
         }
+
+        
     }
 
-    public class GetUserByIdQuery : IRequest<UserResponseDto>, IBaseRequest
-    {
-        public int UserId { get; }
-
-        public GetUserByIdQuery(int userId)
-        {
-            UserId = userId;
-        }
-    }
 }
 
