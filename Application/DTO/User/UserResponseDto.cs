@@ -14,6 +14,6 @@ namespace Application.DTO.User
         public bool IsBlocked { get; set; } = false;
         public string Password { get; set; }
         public List<Core.Entities.Loan> Loans { get; set; } = new List<Core.Entities.Loan>();
-        public UserRole UserRole { get; set; }
+        public UserType UserType { get; set; }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-    public enum UserRole
+   public enum AdminRoles
     {
-        Accountant,
-        User,
+        Admin,
+        Accountant
+
     }
 }

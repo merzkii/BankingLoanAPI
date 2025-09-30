@@ -20,11 +20,22 @@ namespace Infrastructure.Persistance.Configurations
             builder.Property(l => l.Period).IsRequired();
             builder.Property(l => l.Status).IsRequired().HasDefaultValue(LoanStatus.InProcess);
 
-            // Define the relationship between Loan and User
+           
             builder.HasOne(l => l.User)
                    .WithMany(u => u.Loans)
                    .HasForeignKey(l => l.UserId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(l => l.ApprovedBy)
+            .WithMany()
+            .HasForeignKey(l => l.ApprovedById)
+            .OnDelete(DeleteBehavior.Restrict);
+
+           
+            builder.HasOne(l => l.RejectedBy)
+                .WithMany()
+                .HasForeignKey(l => l.RejectedById)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

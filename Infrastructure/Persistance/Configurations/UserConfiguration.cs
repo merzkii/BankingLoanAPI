@@ -43,7 +43,7 @@ namespace Infrastructure.Persistance.Configurations
             builder.Property(u => u.MonthlyIncome)
                 .HasPrecision(18, 2);
 
-            builder.Property(u => u.UserRole)
+            builder.Property(u => u.UserType)
                 .IsRequired()
                 .HasConversion<string>()
                 .HasMaxLength(20);

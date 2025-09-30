@@ -47,7 +47,7 @@ namespace Application.Features.Users.Commands.Register
                 Age = request.Age,
                 MonthlyIncome = request.MonthlyIncome,
                 IsBlocked = false,
-                UserRole = UserRole.User,
+                UserType = request.UserType,
                 Password = hashedPassword
             };
 

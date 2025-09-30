@@ -8,6 +8,7 @@ namespace Infrastructure.Persistance.Contexts
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Loan> Loans { get; set; }
+        public DbSet<AdminUsers> AdminUsers { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

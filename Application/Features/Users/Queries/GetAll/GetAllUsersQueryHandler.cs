@@ -26,7 +26,7 @@ namespace Application.Features.Users.Queries.GetAll
                 UserId = user.UserId,
                 Username = user.Username,
                 Email = user.Email,
-                UserRole = user.UserRole,
+                UserType = user.UserType,
                 IsBlocked = user.IsBlocked
             }).ToList();
 

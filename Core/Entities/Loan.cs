@@ -13,5 +13,9 @@ namespace Core.Entities
         public int Period { get; set; }
         public LoanStatus Status { get; set; }
         public User User { get; set; }
+        public int? ApprovedById { get; set; }
+        public AdminUsers? ApprovedBy { get; set; }
+        public int? RejectedById { get; set; }
+        public AdminUsers? RejectedBy { get; set; }
     }
 }

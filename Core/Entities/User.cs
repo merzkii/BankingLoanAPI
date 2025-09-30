@@ -19,6 +19,6 @@ namespace Core.Entities
         public bool IsBlocked { get; set; } 
         public string Password { get; set; } 
         public List<Loan> Loans { get; set; }
-        public UserRole UserRole { get; set; } = UserRole.User;
+        public UserType UserType { get; set; }
     }
 }
