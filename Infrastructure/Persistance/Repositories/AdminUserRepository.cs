@@ -43,6 +43,11 @@ public AdminUserRepository(AppDbContext context)
             return await _context.AdminUsers.FindAsync(id);
         }
 
+        public async Task<AdminUsers?> GetByUsernameAsync(string username)
+        {
+            return await _context.AdminUsers.FirstOrDefaultAsync(u => u.Username == username);
+        }
+
         public async Task UpdateAsync(AdminUsers adminUser)
         {
             

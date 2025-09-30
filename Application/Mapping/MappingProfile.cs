@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.DTO.Loan;
+using Application.DTO.AdminUser;
 
 namespace Application.Mapping
 {
@@ -16,6 +17,7 @@ namespace Application.Mapping
         {
             CreateMap<User, UserResponseDto>().ReverseMap();
             CreateMap<Loan, LoanResponseDto>().ReverseMap();
+            CreateMap<AdminUsers,AdminUserResponseDTO>().ReverseMap();
         }
     }
 }

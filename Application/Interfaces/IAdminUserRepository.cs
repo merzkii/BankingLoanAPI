@@ -11,6 +11,7 @@ namespace Application.Interfaces
     {
         Task<AdminUsers?> GetByIdAsync(int id);
         Task<List<AdminUsers>> GetAllAsync();
+        Task<AdminUsers?> GetByUsernameAsync(string username);
         Task AddAsync(AdminUsers adminUser);
         Task UpdateAsync(AdminUsers adminUser);
         Task DeleteAsync(int id);

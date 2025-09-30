@@ -23,6 +23,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "accountant")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
@@ -30,6 +31,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "accountant")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllUsersQuery());
