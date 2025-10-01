@@ -33,7 +33,10 @@ namespace Infrastructure.Persistance.Repositories
         public async Task<User?> GetByEmailAsync(string email) =>
             await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-        public async Task<User?> GetByIdAsync(int id) => await _context.Users.FindAsync(id);
+        public async Task<User?> GetByIdAsync(int id)
+        {
+            return await _context.Users.Include(u => u.Loans).FirstOrDefaultAsync(u => u.UserId == id);
+        } 
         public async Task<User?> GetByUsernameAsync(string username) =>
             await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
          public async Task UpdateAsync(User user) => _context.Users.Update(user);

@@ -12,7 +12,7 @@ namespace Core.Entities
         public string Currency { get; set; }
         public int Period { get; set; }
         public LoanStatus Status { get; set; }
-        public User User { get; set; }
+        //public User User { get; set; }
         public int? ApprovedById { get; set; }
         public AdminUsers? ApprovedBy { get; set; }
         public int? RejectedById { get; set; }

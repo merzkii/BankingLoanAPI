@@ -41,7 +41,7 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<IEnumerable<Loan>> GetAllAsync()
         {
-           await _context.Loans.Include(x => x.User).ToListAsync();
+           await _context.Loans./*Include(x => x.User).*/ToListAsync();
             return await _context.Loans.ToListAsync();  
         }
 

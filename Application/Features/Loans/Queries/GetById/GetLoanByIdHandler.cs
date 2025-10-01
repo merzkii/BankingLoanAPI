@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Loans.Queries.GetById
 {
-   public class GetLoanByIdHandler : IRequestHandler<GetLoanByIdQuery, LoanResponseDto>
+    public class GetLoanByIdHandler : IRequestHandler<GetLoanByIdQuery, LoanResponseDto>
     {
         private readonly ILoanRepository _loanRepository;
         private readonly IMapper _mapper;
@@ -24,10 +24,9 @@ namespace Application.Features.Loans.Queries.GetById
 
         public async Task<LoanResponseDto> Handle(GetLoanByIdQuery request, CancellationToken cancellationToken)
         {
-            
             var loan = await _loanRepository.GetLoanByIdAsync(request.Id);
             return _mapper.Map<LoanResponseDto>(loan);
-            
+
         }
     }
 }

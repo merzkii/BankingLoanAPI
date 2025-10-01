@@ -21,10 +21,10 @@ namespace Infrastructure.Persistance.Configurations
             builder.Property(l => l.Status).IsRequired().HasDefaultValue(LoanStatus.InProcess);
 
            
-            builder.HasOne(l => l.User)
-                   .WithMany(u => u.Loans)
-                   .HasForeignKey(l => l.UserId)
-                   .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(l => l.User)
+            //       .WithMany(u => u.Loans)
+            //       .HasForeignKey(l => l.UserId)
+            //       .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(l => l.ApprovedBy)
             .WithMany()

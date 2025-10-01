@@ -29,6 +29,7 @@ namespace LoanAPI.Controllers
             return Ok(result);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin,Accountant")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllLoansQuery());
@@ -52,6 +53,7 @@ namespace LoanAPI.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteLoanCommand { LoanId = id });

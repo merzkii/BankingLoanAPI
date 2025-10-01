@@ -23,7 +23,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "accountant")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
@@ -31,7 +31,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "accountant")]
+        [Authorize(Roles = "Admin,Accountant")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllUsersQuery());
@@ -47,6 +47,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteUserCommand { UserId = id });

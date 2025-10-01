@@ -8,7 +8,7 @@ namespace Core.Enums
 {
     public enum UserType
     {
-        Individual,
+        User,
         Enterpreuer,
         Company,
     }
