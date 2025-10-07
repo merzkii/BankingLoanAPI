@@ -1,4 +1,5 @@
-﻿using Core.Enums;
+﻿using Application.DTO.Loan;
+using Core.Enums;
 
 namespace Application.DTO.User
 {
@@ -13,7 +14,7 @@ namespace Application.DTO.User
         public decimal MonthlyIncome { get; set; }
         public bool IsBlocked { get; set; } = false;
         public string Password { get; set; }
-        public List<Core.Entities.Loan> Loans { get; set; } = new List<Core.Entities.Loan>();
+        public List<LoanResponseDto> Loans { get; set; } = new ();
         public UserType UserType { get; set; }
     }
 }
