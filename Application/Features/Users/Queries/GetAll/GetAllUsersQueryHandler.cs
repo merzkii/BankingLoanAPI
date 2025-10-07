@@ -11,16 +11,16 @@ namespace Application.Features.Users.Queries.GetAll
 {
     class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserResponseDto>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public GetAllUsersQueryHandler(IUserRepository userRepository)
+        public GetAllUsersQueryHandler(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public async Task<List<UserResponseDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _userRepository.GetAllAsync();
+            var users = await _userService.GetAllAsync();
             return users.Select(user => new UserResponseDto
             {
                 UserId = user.UserId,

@@ -11,27 +11,27 @@ namespace Application.Features.Users.Commands.Register
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, LoginResponseDto>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
         public RegisterUserCommandHandler(
-            IUserRepository userRepository,
+            IUserService userService,
             IPasswordHasher passwordHasher,
             IJwtTokenGenerator jwtTokenGenerator)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         public async Task<LoginResponseDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _userRepository.GetByUsernameAsync(request.Username);
+            var existingUser = await _userService.GetByUsernameAsync(request.Username);
             if (existingUser != null)
                 throw new ValidationException("Username is already taken.");
 
-            var existingEmail = await _userRepository.GetByEmailAsync(request.Email); 
+            var existingEmail = await _userService.GetByEmailAsync(request.Email); 
             if (existingEmail != null)
                 throw new ValidationException("Email is already in use.");
 
@@ -51,7 +51,7 @@ namespace Application.Features.Users.Commands.Register
                 Password = hashedPassword
             };
 
-            await _userRepository.AddAsync(user);
+            await _userService.RegisterAsync(user);
 
            
             var token = _jwtTokenGenerator.GenerateToken(user);

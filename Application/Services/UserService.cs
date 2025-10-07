@@ -22,9 +22,9 @@ namespace Application.Services
         public Task<User?> GetByIdAsync(int id) => _userRepository.GetByIdAsync(id);
         public Task<List<User>> GetAllAsync() => _userRepository.GetAllAsync();
         public Task<User?> GetByUsernameAsync(string username) => _userRepository.GetByUsernameAsync(username);
-
+        public Task<User?> GetByEmailAsync(string email) => _userRepository.GetByEmailAsync(email);
         public Task RegisterAsync(User user) => _userRepository.AddAsync(user);
-        public Task DeleteAsync(User user) => _userRepository.DeleteAsync(user.UserId);
+        public Task DeleteAsync(int userId) => _userRepository.DeleteAsync(userId);
         public Task UpdateAsync(User user) => _userRepository.UpdateAsync(user);
     }
 

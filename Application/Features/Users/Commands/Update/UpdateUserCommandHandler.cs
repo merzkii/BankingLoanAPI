@@ -13,18 +13,18 @@ namespace Application.Features.Users.Commands.Update
 {
     class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UserResponseDto>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository, IMapper mapper)
+        public UpdateUserCommandHandler(IUserService userService, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _mapper = mapper;
         }
 
         public async Task<UserResponseDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var user = await _userService.GetByIdAsync(request.UserId);
             if (user == null)
             {
                 throw new NotFoundException("User not found.");
@@ -36,7 +36,7 @@ namespace Application.Features.Users.Commands.Update
             user.Age = request.UserData.Age;
             user.Email = request.UserData.Email;
 
-            await _userRepository.UpdateAsync(user);
+            await _userService.UpdateAsync(user);
 
             return _mapper.Map<UserResponseDto>(user);
         }

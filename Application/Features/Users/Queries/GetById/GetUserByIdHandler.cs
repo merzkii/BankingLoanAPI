@@ -16,12 +16,12 @@ namespace Application.Features.Users.Queries.GetById
 {
     public class GetUserByIdHandler: IRequestHandler<GetUserByIdQuery, UserResponseDto>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public GetUserByIdHandler(IUserRepository userRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public GetUserByIdHandler(IUserService userService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -34,7 +34,7 @@ namespace Application.Features.Users.Queries.GetById
             {
                 throw new UnauthorizedAccessException("You are not allowed to view other users' information.");
             }
-            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var user = await _userService.GetByIdAsync(request.UserId);
             if (user == null)
             {
                 throw new NotFoundException("User not found.");

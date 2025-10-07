@@ -1,5 +1,6 @@
 ﻿using Application.DTO.Loan;
 using Application.Exceptions;
+using Application.Interfaces;
 using AutoMapper;
 using Core.Enums;
 using Core.Interfaces;
@@ -16,25 +17,18 @@ namespace Application.Features.Loans.Commands.Approve
   
     public class ApproveLoanHandler : IRequestHandler<ApproveLoanCommand, LoanResponseDto>
     {
-        private readonly ILoanRepository _loanRepository;
+        private readonly ILoanService _loanService;
         private readonly IMapper _mapper;
 
-        public ApproveLoanHandler(ILoanRepository loanRepository, IMapper mapper)
+        public ApproveLoanHandler(ILoanService loanService, IMapper mapper)
         {
-            _loanRepository = loanRepository;
+            _loanService = loanService;
             _mapper = mapper;
         }
 
         public async Task<LoanResponseDto> Handle(ApproveLoanCommand request, CancellationToken cancellationToken)
         {
-            var loan = await _loanRepository.GetLoanByIdAsync(request.LoanId);
-            if (loan == null)
-                throw new NotFoundException("Loan not found");
-
-            loan.Status = LoanStatus.Approved;
-            await _loanRepository.UpdateLoanAsync(loan);
-
-            return _mapper.Map<LoanResponseDto>(loan);
+          return  await _loanService.ApproveLoanAsync(request.LoanId);
         }
     }
 }

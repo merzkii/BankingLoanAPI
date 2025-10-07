@@ -23,6 +23,7 @@ namespace LoanAPI.Controllers
             _mediator = mediator;
         }
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _mediator.Send(new GetLoanByIdQuery(id));
@@ -43,6 +44,7 @@ namespace LoanAPI.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
         [HttpPut("update/{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, UpdateLoanCommand command)
         {
             if (id != command.LoanId)

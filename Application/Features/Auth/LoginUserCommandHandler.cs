@@ -14,20 +14,20 @@ namespace Application.Features.Auth
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginResponseDto>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IAdminUserRepository _adminUserRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IPasswordHasher<AdminUsers> _adminPasswordHasher;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
         public LoginUserCommandHandler(
-            IUserRepository userRepository,
+            IUserService userService,
             IAdminUserRepository adminUserRepository,
             IPasswordHasher<User> passwordHasher,
             IPasswordHasher<AdminUsers> adminPasswordHasher,
             IJwtTokenGenerator jwtTokenGenerator)
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _adminUserRepository = adminUserRepository;
             _passwordHasher = passwordHasher;
             _adminPasswordHasher = adminPasswordHasher;
@@ -36,7 +36,7 @@ namespace Application.Features.Auth
 
         public async Task<LoginResponseDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByUsernameAsync(request.Username);
+            var user = await _userService.GetByUsernameAsync(request.Username);
             if (user == null ||
                 _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password) == PasswordVerificationResult.Failed)
             {

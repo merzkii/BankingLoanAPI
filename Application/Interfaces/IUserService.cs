@@ -14,7 +14,8 @@ namespace Application
         Task<List<User>> GetAllAsync();
         Task<User?> GetByUsernameAsync(string username);
         Task RegisterAsync(User user);
-        Task DeleteAsync(User user);
+        Task DeleteAsync(int userId);
         Task UpdateAsync(User user);
+        Task<User?> GetByEmailAsync(string email);
     }
 }
