@@ -14,7 +14,7 @@ namespace Application.Features.Users.Commands.Block
         private readonly IUserService _userService;
         public BlockUserCommandHandler(IUserService userService)
         {
-            _userService = _userService;
+            _userService = userService;
         }
         public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
         {

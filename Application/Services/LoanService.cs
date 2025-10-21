@@ -12,9 +12,10 @@ namespace Application.Services
     {
         private readonly ILoanRepository _loanRepository;
         private readonly IMapper _mapper;
-        public LoanService(ILoanRepository loanRepository)
+        public LoanService(ILoanRepository loanRepository,IMapper mapper)
         {
             _loanRepository = loanRepository;
+            _mapper = mapper;
         }
         public async Task<LoanResponseDto> ApproveLoanAsync(int loanId)
         {

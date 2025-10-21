@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Admins.Commands.Create
 {
-    public class CreateAdminHandler: IRequestHandler<CreateAdminCommand, LoginResponseDto>
+    public class CreateAdminHandler : IRequestHandler<CreateAdminCommand, LoginResponseDto>
     {
         private readonly IAdminUserRepository _adminUserRepository;
         private readonly IPasswordHasher<AdminUsers> _passwordHasher;
@@ -39,10 +39,11 @@ namespace Application.Features.Admins.Commands.Create
                 Surname = request.LastName,
                 Username = request.Username,
                 Email = request.Email,
-                Role=request.Role,
+                Role = request.Role,
                 PasswordHash = _passwordHasher.HashPassword(null, request.Password)
             };
-          
+
+            _adminUserRepository.AddAsync(adminUser);
             var token = _jwtTokenGenerator.GenerateToken(adminUser);
             return new LoginResponseDto
             {

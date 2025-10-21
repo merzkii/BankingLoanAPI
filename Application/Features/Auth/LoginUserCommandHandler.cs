@@ -37,19 +37,19 @@ namespace Application.Features.Auth
         public async Task<LoginResponseDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userService.GetByUsernameAsync(request.Username);
-            if (user == null ||
-                _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password) == PasswordVerificationResult.Failed)
+            if (user != null)
             {
-                throw new UnauthorizedAccessException("Invalid username or password.");
+                var verify = _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password);
+                if (verify != PasswordVerificationResult.Failed)
+                {
+                    var token = _jwtTokenGenerator.GenerateToken(user);
+                    return new LoginResponseDto
+                    {
+                        Token = token,
+                        Expiration = DateTime.UtcNow.AddHours(1)
+                    };
+                }
             }
-
-            var token = _jwtTokenGenerator.GenerateToken(user);
-
-            return new LoginResponseDto
-            {
-                Token = token,
-                Expiration = DateTime.UtcNow.AddHours(1)
-            };
 
             var adminUser = await _adminUserRepository.GetByUsernameAsync(request.Username);
             if (adminUser == null ||
