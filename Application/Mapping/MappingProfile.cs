@@ -16,7 +16,7 @@ namespace Application.Mapping
         public MappingProfile()
         {
             CreateMap<User, UserResponseDto>().ReverseMap().ForMember(dest => dest.Loans, opt => opt.MapFrom(src => src.Loans)); ;
-            CreateMap<Loan, LoanResponseDto>().ReverseMap().ForMember(dest => dest.User, opt => opt.Ignore()); 
+            CreateMap<Loan, LoanResponseDto>().ForMember(dest=>dest.Id, opt=>opt.MapFrom(src=>src.LoanId)).ReverseMap().ForMember(dest=>dest.LoanId, opt=>opt.MapFrom(src=>src.Id)).ForMember(dest => dest.User, opt => opt.Ignore()); 
             CreateMap<AdminUsers,AdminUserResponseDTO>().ReverseMap();
         }
     }
