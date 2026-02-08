@@ -1,4 +1,5 @@
-﻿using Application.DTO.User;
+﻿using Application.DTO.Loan;
+using Application.DTO.User;
 using Core.Interfaces;
 using MediatR;
 using System;
@@ -24,10 +25,15 @@ namespace Application.Features.Users.Queries.GetAll
             return users.Select(user => new UserResponseDto
             {
                 UserId = user.UserId,
+                FirstName = user.FirstName,
+                LastName=user.LastName,
                 Username = user.Username,
                 Email = user.Email,
                 UserType = user.UserType,
-                IsBlocked = user.IsBlocked
+                IsBlocked = user.IsBlocked,
+                Loans=user.Loans.Select(l=>new LoanResponseDto { Id=l.LoanId}).ToList()
+                
+                
             }).ToList();
 
             //return users.Select(user => new UserResponseDto

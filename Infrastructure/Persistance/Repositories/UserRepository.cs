@@ -28,7 +28,7 @@ namespace Infrastructure.Persistance.Repositories
                 _context.Users.Remove(user);
             }
         }
-        public async Task<List<User>> GetAllAsync() => await _context.Users.ToListAsync();
+        public async Task<List<User>> GetAllAsync() => await _context.Users.Include(x=>x.Loans).ToListAsync();
 
         public async Task<User?> GetByEmailAsync(string email) =>
             await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
