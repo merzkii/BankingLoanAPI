@@ -43,7 +43,7 @@ namespace Application.Features.Admins.Commands.Create
                 PasswordHash = _passwordHasher.HashPassword(null, request.Password)
             };
 
-            _adminUserRepository.AddAsync(adminUser);
+            await _adminUserRepository.AddAsync(adminUser);
             var token = _jwtTokenGenerator.GenerateToken(adminUser);
             return new LoginResponseDto
             {
