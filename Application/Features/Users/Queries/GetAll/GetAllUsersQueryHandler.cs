@@ -31,7 +31,13 @@ namespace Application.Features.Users.Queries.GetAll
                 Email = user.Email,
                 UserType = user.UserType,
                 IsBlocked = user.IsBlocked,
-                Loans=user.Loans.Select(l=>new LoanResponseDto { Id=l.LoanId}).ToList()
+                Loans=user.Loans.Select(l=>new LoanResponseDto { Id=l.LoanId,
+                Amount=l.Amount,
+                Currency=l.Currency,
+                Period=l.Period,
+                LoanType=l.LoanType,
+                Status=l.Status,
+                }).ToList()
                 
                 
             }).ToList();
