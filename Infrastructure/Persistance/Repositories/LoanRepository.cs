@@ -35,19 +35,22 @@ namespace Infrastructure.Persistance.Repositories
         public async Task DeleteLoanAsync(int id)
         {
             var loan = await _context.Loans.FindAsync(id);
+            if(loan is null)
+            {
+                throw new KeyNotFoundException($"Loan with {id} not found");
+            }
             _context.Loans.Remove(loan);
             await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<Loan>> GetAllAsync()
         {
-           await _context.Loans./*Include(x => x.User).*/ToListAsync();
-            return await _context.Loans.ToListAsync();  
+            return await _context.Loans.AsNoTracking().ToListAsync();
         }
 
         public async Task<Loan> GetLoanByIdAsync(int id)
         {
-            var loan = await _context.Loans
+            var loan = await _context.Loans.AsNoTracking()
                 .Include(x => x.User)
                 .FirstOrDefaultAsync(x => x.LoanId == id);
             if (loan == null)
@@ -56,10 +59,10 @@ namespace Infrastructure.Persistance.Repositories
             }
             return loan;
         }
-        
+
         public async Task<IEnumerable<Loan>> GetLoansByUserIdAsync(int userId)
         {
-          _context.Loans.Include(x => x.User).ToListAsync();
+            await _context.Loans.AsNoTracking().Include(x => x.User).ToListAsync();
             return await _context.Loans
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
@@ -76,5 +79,5 @@ namespace Infrastructure.Persistance.Repositories
             await Task.CompletedTask;
         }
     }
-    
+
 }
