@@ -1,14 +1,9 @@
 ﻿using Application.DTO.User;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetById
 {
-    public class GetUserByIdQuery: IRequest<UserResponseDto>
+    public class GetUserByIdQuery : IRequest<UserResponseDto>
     {
         public int UserId { get; set; }
         public GetUserByIdQuery(int userId)
@@ -16,5 +11,4 @@ namespace Application.Features.Users.Queries.GetById
             UserId = userId;
         }
     }
-   
 }

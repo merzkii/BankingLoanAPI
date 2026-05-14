@@ -1,13 +1,7 @@
 ﻿using Application.DTO.User;
 using AutoMapper;
-using Core.Interfaces;
 using MediatR;
 using SendGrid.Helpers.Errors.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.Update
 {
@@ -40,6 +34,5 @@ namespace Application.Features.Users.Commands.Update
 
             return _mapper.Map<UserResponseDto>(user);
         }
-
     }
 }

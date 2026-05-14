@@ -1,6 +1,5 @@
 ﻿using Application.DTO.AdminUser;
 using Application.Exceptions;
-using Application.Features.Users.Commands.Update;
 using Application.Interfaces;
 using AutoMapper;
 using MediatR;

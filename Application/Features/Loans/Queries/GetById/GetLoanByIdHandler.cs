@@ -12,13 +12,12 @@ namespace Application.Features.Loans.Queries.GetById
     {
         private readonly ILoanRepository _loanRepository;
         private readonly IMapper _mapper;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICurrentUserService _currentUserService;
-        public GetLoanByIdHandler(ILoanRepository loanRepository, IMapper mapper,IHttpContextAccessor httpContextAccessor,ICurrentUserService currentUserService)
+
+        public GetLoanByIdHandler(ILoanRepository loanRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, ICurrentUserService currentUserService)
         {
             _loanRepository = loanRepository;
             _mapper = mapper;
-            _httpContextAccessor = httpContextAccessor;
             _currentUserService = currentUserService;
         }
 
@@ -33,7 +32,7 @@ namespace Application.Features.Loans.Queries.GetById
             ?? throw new NotFoundException("Loan not found.");
 
             var canViewAllLoans = _currentUserService.IsAdmin || _currentUserService.IsAccountant;
-            var ownsLoan = loan.UserId ==  _currentUserService.UserId;
+            var ownsLoan = loan.UserId == _currentUserService.UserId;
 
             if (!canViewAllLoans && !ownsLoan)
             {
@@ -42,7 +41,5 @@ namespace Application.Features.Loans.Queries.GetById
 
             return _mapper.Map<LoanResponseDto>(loan);
         }
-
     }
-    
 }

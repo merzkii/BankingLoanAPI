@@ -1,12 +1,6 @@
 ﻿using Application.DTO.User;
 using Core.Entities;
 using Core.Interfaces;
-using SendGrid.Helpers.Errors.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -28,6 +22,5 @@ namespace Application.Services
         public Task DeleteAsync(int userId) => _userRepository.DeleteAsync(userId);
         public Task UpdateAsync(User user) => _userRepository.UpdateAsync(user);
     }
-
 }
 

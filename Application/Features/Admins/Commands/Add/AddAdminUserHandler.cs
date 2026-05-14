@@ -3,11 +3,6 @@ using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Admins.Commands.Add
 {
@@ -16,9 +11,10 @@ namespace Application.Features.Admins.Commands.Add
         private readonly IAdminUserRepository _adminUserRepository;
         private readonly IMapper _mapper;
 
-        public AddAdminUserHandler(IAdminUserRepository adminUserRepository)
+        public AddAdminUserHandler(IAdminUserRepository adminUserRepository, IMapper mapper)
         {
             _adminUserRepository = adminUserRepository;
+            _mapper = mapper;
         }
 
         public async Task<AdminUserResponseDTO> Handle(AddAdminUserCommand request, CancellationToken cancellationToken)

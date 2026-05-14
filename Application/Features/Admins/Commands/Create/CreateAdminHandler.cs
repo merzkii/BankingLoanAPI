@@ -2,14 +2,8 @@
 using Application.Exceptions;
 using Application.Interfaces;
 using Core.Entities;
-using Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Admins.Commands.Create
 {
@@ -18,6 +12,7 @@ namespace Application.Features.Admins.Commands.Create
         private readonly IAdminUserRepository _adminUserRepository;
         private readonly IPasswordHasher<AdminUsers> _passwordHasher;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+
         public CreateAdminHandler(IAdminUserRepository adminUserRepository, IPasswordHasher<AdminUsers> passwordHasher, IJwtTokenGenerator jwtTokenGenerator)
         {
             _adminUserRepository = adminUserRepository;

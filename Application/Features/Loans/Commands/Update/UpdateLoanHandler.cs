@@ -13,6 +13,7 @@ namespace Application.Features.Loans.Commands.Update
         private readonly ILoanRepository _loanRepository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
+
         public UpdateLoanHandler(ILoanRepository loanRepository, IMapper mapper, ICurrentUserService currentUserService)
         {
             _loanRepository = loanRepository;
@@ -41,10 +42,12 @@ namespace Application.Features.Loans.Commands.Update
             {
                 throw new ForbiddenException("You do not have permission to update this loan.");
             }
-            if(!canManageAllLoans && loan.Status != LoanStatus.InProcess)
+
+            if (!canManageAllLoans && loan.Status != LoanStatus.InProcess)
             {
                 throw new ForbiddenException("Only in-process loans can be updated.");
             }
+
             loan.Amount = request.LoanData.Amount;
             loan.Currency = request.LoanData.Currency;
             loan.Period = request.LoanData.Period;
@@ -54,8 +57,6 @@ namespace Application.Features.Loans.Commands.Update
             await _loanRepository.SaveChangesAsync();
 
             return _mapper.Map<LoanResponseDto>(loan);
-
         }
     }
-    
 }

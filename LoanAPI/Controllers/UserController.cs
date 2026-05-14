@@ -1,12 +1,10 @@
-﻿using Application.DTO.User;
-using Application.Features.Users.Commands.Block;
+﻿using Application.Features.Users.Commands.Block;
 using Application.Features.Users.Commands.Delete;
 using Application.Features.Users.Commands.Register;
 using Application.Features.Users.Queries.GetAll;
 using Application.Features.Users.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanAPI.Controllers
@@ -61,9 +59,6 @@ namespace LoanAPI.Controllers
             await _mediator.Send(new BlockUserCommand { UserId = id });
             return NoContent();
         }
-
-        
     }
-
 }
 

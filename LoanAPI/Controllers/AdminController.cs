@@ -5,7 +5,6 @@ using Application.Features.Admins.Queries.GetAll;
 using Application.Features.Admins.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanAPI.Controllers
@@ -15,6 +14,7 @@ namespace LoanAPI.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IMediator _mediator;
+
         public AdminController(IMediator mediator)
         {
             _mediator = mediator;
@@ -23,19 +23,20 @@ namespace LoanAPI.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateAdmin(CreateAdminCommand request)
         {
-            var result=await _mediator.Send(request);
+            var result = await _mediator.Send(request);
             return Ok(result);
         }
+
         [HttpPost("add")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddACountant(CreateAdminCommand request)
         {
-            var result =await _mediator.Send(request);
+            var result = await _mediator.Send(request);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]    
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteAdminUserCommand { AdminUserId = id });
@@ -64,7 +65,6 @@ namespace LoanAPI.Controllers
         {
             var result = await _mediator.Send(new GetAllAdminsQuery());
             return Ok(result);
-            
         }
     }
 }

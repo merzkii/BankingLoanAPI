@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : IRequest<TResponse>

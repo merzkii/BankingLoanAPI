@@ -1,7 +1,5 @@
 ﻿using Application.DTO.Auth;
 using Core.Entities;
-using Core.Enums;
-using Core.Interfaces;
 using MediatR;
 using Microsoft.AspNet.Identity;
 using Application.Interfaces;
@@ -31,11 +29,11 @@ namespace Application.Features.Users.Commands.Register
             if (existingUser != null)
                 throw new ValidationException("Username is already taken.");
 
-            var existingEmail = await _userService.GetByEmailAsync(request.Email); 
+            var existingEmail = await _userService.GetByEmailAsync(request.Email);
             if (existingEmail != null)
                 throw new ValidationException("Email is already in use.");
 
-           
+
             var hashedPassword = _passwordHasher.HashPassword(request.Password);
 
             var user = new User
@@ -53,7 +51,6 @@ namespace Application.Features.Users.Commands.Register
 
             await _userService.RegisterAsync(user);
 
-           
             var token = _jwtTokenGenerator.GenerateToken(user);
 
             return new LoginResponseDto
@@ -63,5 +60,4 @@ namespace Application.Features.Users.Commands.Register
             };
         }
     }
-
 }

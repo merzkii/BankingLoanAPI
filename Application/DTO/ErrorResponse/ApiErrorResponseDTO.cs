@@ -2,6 +2,6 @@
 {
     public record ApiErrorResponseDTO(int StatusCode,
         string Message,
-        string? Details = null);
-    
+        string? Details = null
+        );
 }

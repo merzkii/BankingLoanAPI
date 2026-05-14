@@ -1,6 +1,5 @@
 ﻿using Application.DTO.ErrorResponse;
 using Application.Exceptions;
-using SendGrid.Helpers.Errors.Model;
 using System.Text.Json;
 
 namespace LoanAPI.Middlewares

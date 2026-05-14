@@ -5,10 +5,8 @@ using Application.Features.Loans.Commands.Reject;
 using Application.Features.Loans.Commands.Update;
 using Application.Features.Loans.Queries.GetAll;
 using Application.Features.Loans.Queries.GetById;
-using Application.Features.Users.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanAPI.Controllers
@@ -18,10 +16,12 @@ namespace LoanAPI.Controllers
     public class LoanController : ControllerBase
     {
         private readonly IMediator _mediator;
+
         public LoanController(IMediator mediator)
         {
             _mediator = mediator;
         }
+
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetById(int id)
@@ -29,6 +29,7 @@ namespace LoanAPI.Controllers
             var result = await _mediator.Send(new GetLoanByIdQuery(id));
             return Ok(result);
         }
+
         [HttpGet]
         [Authorize(Roles = "Admin,Accountant")]
         public async Task<IActionResult> GetAll([FromQuery] GetAllLoansQuery query)
@@ -36,6 +37,7 @@ namespace LoanAPI.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
         [HttpPost("create")]
         [Authorize]
         public async Task<IActionResult> Create(CreateLoanCommand command)
@@ -43,6 +45,7 @@ namespace LoanAPI.Controllers
             var result = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
+
         [HttpPut("update/{id}")]
         [Authorize]
         public async Task<IActionResult> Update(int id, UpdateLoanCommand command)
@@ -54,6 +57,7 @@ namespace LoanAPI.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> Delete(int id)

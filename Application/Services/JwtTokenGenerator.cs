@@ -2,18 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Core.Entities;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
-
-
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly IConfiguration _configuration;
@@ -50,11 +44,11 @@ namespace Application.Services
         {
             var claims = new[]
             {
-                
+
                     new Claim(ClaimTypes.NameIdentifier, adminUser.Id.ToString()),
             new Claim(ClaimTypes.Name, adminUser.Username),
             new Claim(ClaimTypes.Role, adminUser.Role.ToString())
-                
+
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

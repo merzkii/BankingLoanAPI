@@ -1,12 +1,6 @@
 ﻿using Application.Interfaces;
-using Core.Interfaces;
 using MediatR;
 using SendGrid.Helpers.Errors.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.Delete
 {
@@ -29,7 +23,7 @@ namespace Application.Features.Users.Commands.Delete
 
             var isSelf = request.UserId == _currentUserService.UserId;
 
-            if(!isSelf && !_currentUserService.IsAdmin)
+            if (!isSelf && !_currentUserService.IsAdmin)
             {
                 throw new UnauthorizedAccessException("You do not have permission to delete this user.");
             }
@@ -40,11 +34,10 @@ namespace Application.Features.Users.Commands.Delete
             {
                 throw new NotFoundException("User not found.");
             }
-              
+
             await _userService.DeleteAsync(user.UserId);
 
             return Unit.Value;
         }
     }
-
 }

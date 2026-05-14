@@ -6,5 +6,4 @@ namespace Application.Features.Users.Commands.Delete
     {
         public int UserId { get; init; }
     }
-   
 }

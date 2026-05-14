@@ -2,7 +2,6 @@
 using Application.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
-using Core.Entities;
 using Core.Enums;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -15,12 +14,14 @@ namespace Application.Services
         private readonly ILoanRepository _loanRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
         public LoanService(ILoanRepository loanRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _loanRepository = loanRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
+
         public async Task<LoanResponseDto> ApproveLoanAsync(int loanId)
         {
             var loan = await _loanRepository.GetLoanByIdAsync(loanId)
@@ -48,8 +49,5 @@ namespace Application.Services
 
             return _mapper.Map<LoanResponseDto>(loan);
         }
-
-
     }
-
 }

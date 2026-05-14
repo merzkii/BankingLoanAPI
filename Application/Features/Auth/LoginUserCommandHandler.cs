@@ -1,14 +1,8 @@
 ﻿using Application.DTO.Auth;
 using Application.Interfaces;
 using Core.Entities;
-using Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Auth
 {
@@ -64,8 +58,7 @@ namespace Application.Features.Auth
                 Expiration = DateTime.UtcNow.AddHours(1)
             };
 
-            throw new UnauthorizedAccessException("Invalid username or password."); 
+            throw new UnauthorizedAccessException("Invalid username or password.");
         }
     }
-    
 }
