@@ -1,22 +1,41 @@
 ﻿using Application.DTO.Loan;
+using Application.Exceptions;
 using Core.Entities;
 using Core.Interfaces;
-using FluentValidation;
 using Infrastructure.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Persistance.Repositories
 {
     public class LoanRepository : ILoanRepository
     {
+        private static readonly HashSet<string> AllowedSortColumns = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "id",
+            "amount",
+            "currency",
+            "period",
+            "loantype",
+            "status",
+            "userid"
+
+        };
         private readonly AppDbContext _context;
-        public LoanRepository(AppDbContext context)
+        private readonly ILogger<LoanRepository> _logger;
+
+        public LoanRepository(AppDbContext context, ILogger<LoanRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task AddLoanAsync(Loan loan)
         {
+            if (loan is null)
+            {
+                throw new ValidationException("Loan data is required.");
+            }
             try
             {
                 await _context.Loans.AddAsync(loan);
@@ -24,43 +43,51 @@ namespace Infrastructure.Persistance.Repositories
             }
             catch (DbUpdateException ex)
             {
-                Console.WriteLine(ex.InnerException?.Message);
+                _logger.LogError(ex, "Failed to add loan for user with ID {UserId}.", loan.UserId);
                 throw;
             }
         }
 
         public async Task DeleteLoanAsync(int id)
         {
+            ValidateId(id, nameof(id));
+
             var loan = await _context.Loans.FindAsync(id);
-            if(loan is null)
+            if (loan is null)
             {
-                throw new KeyNotFoundException($"Loan with {id} not found");
+                throw new NotFoundException($"Loan with {id} not found");
             }
+
             _context.Loans.Remove(loan);
-            await Task.CompletedTask;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Loan>> GetAllAsync()
         {
-            return await _context.Loans.AsNoTracking().ToListAsync();
+            return await _context.Loans
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<(List<Loan> Items, int TotalCount)> GetPagedAsync(LoanQueryParameters parameters)
         {
+            ValidatePagedParameters(parameters);
+
             var query = _context.Loans.AsNoTracking().AsQueryable();
 
-            if(parameters.Status.HasValue)
+            if (parameters.Status.HasValue)
             {
                 query = query.Where(loan => loan.Status == parameters.Status.Value);
             }
 
-            if(parameters.LoanType.HasValue)
+            if (parameters.LoanType.HasValue)
             {
                 query = query.Where(loan => loan.LoanType == parameters.LoanType.Value);
             }
 
             if (parameters.UserId.HasValue)
             {
+                ValidateId(parameters.UserId.Value, nameof(parameters.UserId));
                 query = query.Where(loan => loan.UserId == parameters.UserId.Value);
             }
 
@@ -84,6 +111,51 @@ namespace Infrastructure.Persistance.Repositories
             return (items, totalCount);
         }
 
+        public async Task<Loan> GetLoanByIdAsync(int id)
+        {
+            ValidateId(id, nameof(id));
+
+            var loan = await _context.Loans
+                .AsNoTracking()
+                .Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.LoanId == id);
+
+            if (loan == null)
+            {
+                throw new NotFoundException($"Loan with ID {id} not found.");
+            }
+
+            return loan;
+        }
+
+        public async Task<IEnumerable<Loan>> GetLoansByUserIdAsync(int userId)
+        {
+            ValidateId(userId, nameof(userId));
+
+            return await _context.Loans
+                .AsNoTracking()
+                .Include(x => x.User)
+      .Where(x => x.UserId == userId)
+      .ToListAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public Task UpdateLoanAsync(Loan loan)
+        {
+            if (loan is null)
+            {
+                throw new ValidationException("Loan data is required.");
+            }
+
+            ValidateId(loan.LoanId, nameof(loan.LoanId));
+            _context.Loans.Update(loan);
+            return Task.CompletedTask;
+        }
+
         private static IQueryable<Loan> ApplySorting(IQueryable<Loan> query, string? sortBy, bool descending)
         {
             var normalizedSortBy = sortBy?.Trim().ToLowerInvariant();
@@ -100,36 +172,58 @@ namespace Infrastructure.Persistance.Repositories
             };
         }
 
-        public async Task<Loan> GetLoanByIdAsync(int id)
+        private static void ValidateId(int id, string parameterName)
         {
-            var loan = await _context.Loans.AsNoTracking()
-                .Include(x => x.User)
-                .FirstOrDefaultAsync(x => x.LoanId == id);
-            if (loan == null)
+            if (id <= 0)
             {
-                throw new KeyNotFoundException($"Loan with ID {id} not found.");
+                throw new ValidationException($"{parameterName} must be a positive integer.");
             }
-            return loan;
         }
 
-        public async Task<IEnumerable<Loan>> GetLoansByUserIdAsync(int userId)
+        private static void ValidatePagedParameters(LoanQueryParameters parameters)
         {
-            await _context.Loans.AsNoTracking().Include(x => x.User).ToListAsync();
-            return await _context.Loans
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
+            if (parameters is null)
+            {
+                throw new ValidationException("Loan query parameters are required.");
+            }
+
+            if (parameters.MinAmount.HasValue && parameters.MinAmount.Value < 0)
+            {
+                throw new ValidationException("Minimum amount cannot be negative.");
+            }
+
+            if (parameters.MaxAmount.HasValue && parameters.MaxAmount.Value < 0)
+            {
+                throw new ValidationException("Maximum amount cannot be negative.");
+            }
+
+            if (parameters.MinAmount.HasValue && parameters.MaxAmount.HasValue && parameters.MinAmount.Value > parameters.MaxAmount.Value)
+            {
+                throw new ValidationException("Minimum amount cannot be greater than maximum amount.");
+            }
+
+            ValidateSortDirection(parameters.SortDirection);
+            ValidateSortColumn(parameters.SortBy);
         }
 
-        public async Task SaveChangesAsync()
+        private static void ValidateSortDirection(string? sortDirection)
         {
-            await _context.SaveChangesAsync();
+            if (!string.IsNullOrWhiteSpace(sortDirection)
+                && !string.Equals(sortDirection, "asc", StringComparison.OrdinalIgnoreCase)
+                && !string.Equals(sortDirection, "desc", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ValidationException("Sort direction must be 'asc' or 'desc'.");
+            }
         }
 
-        public async Task UpdateLoanAsync(Loan loan)
+        private static void ValidateSortColumn(string? sortBy)
         {
-            _context.Loans.Update(loan);
-            await Task.CompletedTask;
+            if (!string.IsNullOrWhiteSpace(sortBy) && !AllowedSortColumns.Contains(sortBy.Trim()))
+            {
+                throw new ValidationException($"Unsupported loan sort column '{sortBy}'.");
+            }
         }
     }
-
 }
+
+
