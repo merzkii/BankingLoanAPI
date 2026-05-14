@@ -21,6 +21,7 @@ namespace Application.Services
 
         public Task<User?> GetByIdAsync(int id) => _userRepository.GetByIdAsync(id);
         public Task<List<User>> GetAllAsync() => _userRepository.GetAllAsync();
+        public Task<(List<User> Items, int TotalCount)> GetPagedAsync(UserQueryParameters parameters) => _userRepository.GetPagedAsync(parameters);
         public Task<User?> GetByUsernameAsync(string username) => _userRepository.GetByUsernameAsync(username);
         public Task<User?> GetByEmailAsync(string email) => _userRepository.GetByEmailAsync(email);
         public Task RegisterAsync(User user) => _userRepository.AddAsync(user);

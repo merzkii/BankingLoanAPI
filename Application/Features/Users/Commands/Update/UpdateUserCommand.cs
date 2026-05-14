@@ -1,17 +1,14 @@
 ﻿using Application.DTO.User;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.Update
 {
-    public class UpdateUserCommand : IRequest<UserResponseDto>
+    public record UpdateUserCommand : IRequest<UserResponseDto>
     {
-        public int UserId { get; set; }
-        public UserRequestDto UserData { get; set; }
+        public int UserId { get; init; }
+        public UserRequestDto UserData { get; init; } = new();
+
+        public UpdateUserCommand() { }
 
         public UpdateUserCommand(int userId, UserRequestDto userData)
         {

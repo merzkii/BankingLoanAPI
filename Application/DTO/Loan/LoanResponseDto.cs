@@ -1,20 +1,15 @@
 ﻿using Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.DTO.Loan
 {
     public record LoanResponseDto
     {
-        public int Id { get; set; }
-        public decimal Amount { get; set; }
-        public string Currency { get; set; }
-        public int Period { get; set; }
-        public LoanType LoanType { get; set; }
-        public LoanStatus Status { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; init; }
+        public decimal Amount { get; init; }
+        public string Currency { get; init; } = string.Empty;
+        public int Period { get; init; }
+        public LoanType LoanType { get; init; }
+        public LoanStatus Status { get; init; }
+        public int UserId { get; init; }
     }
 }

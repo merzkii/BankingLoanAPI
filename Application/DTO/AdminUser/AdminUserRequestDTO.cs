@@ -1,19 +1,14 @@
 ﻿using Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.DTO.AdminUser
 {
-    public class AdminUserRequestDTO
+    public record AdminUserRequestDTO
     {
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public AdminRoles Role { get; set; }
+        public string firstName { get; init; } = string.Empty;
+        public string lastName { get; init; } = string.Empty;
+        public string Username { get; init; } = string.Empty;
+        public string Email { get; init; } = string.Empty;
+        public string Password { get; init; } = string.Empty;
+        public AdminRoles Role { get; init; }
     }
 }

@@ -1,55 +1,32 @@
-﻿using Application.DTO.Loan;
+﻿using Application.DTO.Common;
 using Application.DTO.User;
-using Core.Interfaces;
+using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetAll
 {
-    class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserResponseDto>>
+    class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedResult<UserResponseDto>>
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public GetAllUsersQueryHandler(IUserService userService)
+        public GetAllUsersQueryHandler(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
-        public async Task<List<UserResponseDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<UserResponseDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _userService.GetAllAsync();
-            return users.Select(user => new UserResponseDto
+            if (request is null)
             {
-                UserId = user.UserId,
-                FirstName = user.FirstName,
-                LastName=user.LastName,
-                Username = user.Username,
-                Email = user.Email,
-                UserType = user.UserType,
-                IsBlocked = user.IsBlocked,
-                Loans=user.Loans.Select(l=>new LoanResponseDto { Id=l.LoanId,
-                Amount=l.Amount,
-                Currency=l.Currency,
-                Period=l.Period,
-                LoanType=l.LoanType,
-                Status=l.Status,
-                }).ToList()
-                
-                
-            }).ToList();
+                throw new ArgumentNullException(nameof(request));
+            }
 
-            //return users.Select(user => new UserResponseDto
-            //{
-            //    UserId = user.UserId,
-            //    Username = user.Username,
-            //    Email = user.Email,
-            //    UserRole = user.UserRole,
-            //    IsBlocked = user.IsBlocked
-            //}).ToList();
+            var (users, totalCount) = await _userService.GetPagedAsync(request);
+            var items = _mapper.Map<List<UserResponseDto>>(users);
+
+            return new PagedResult<UserResponseDto>(items, totalCount, request.PageNumber, request.PageSize);
         }
     }
 }

@@ -1,9 +1,5 @@
-﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.DTO.Loan;
+using Core.Entities;
 
 namespace Core.Interfaces
 {
@@ -11,6 +7,7 @@ namespace Core.Interfaces
     {
         Task<Loan> GetLoanByIdAsync(int id);
         Task<IEnumerable<Loan>> GetAllAsync();
+        Task<(List<Loan> Items, int TotalCount)> GetPagedAsync(LoanQueryParameters parameters);
         Task<IEnumerable<Loan>> GetLoansByUserIdAsync(int userId);
         Task AddLoanAsync(Loan loan);
         Task UpdateLoanAsync(Loan loan);

@@ -1,19 +1,9 @@
-﻿using Application.DTO.AdminUser;
-using Application.DTO.Loan;
-using Application.DTO.User;
+﻿using Application.DTO.User;
 using Application.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
-using Core.Entities;
-using Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetById
 {

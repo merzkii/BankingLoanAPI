@@ -3,18 +3,17 @@ using Core.Enums;
 
 namespace Application.DTO.User
 {
-    public class UserResponseDto
+    public record UserResponseDto
     {
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Username { get; set; }
-        public int Age { get; set; }
-        public string Email { get; set; }
-        public decimal MonthlyIncome { get; set; }
-        public bool IsBlocked { get; set; } = false;
-        public string Password { get; set; }
-        public List<LoanResponseDto> Loans { get; set; } = new ();
-        public UserType UserType { get; set; }
+        public int UserId { get; init; }
+        public string FirstName { get; init; } = string.Empty;
+        public string LastName { get; init; } = string.Empty;
+        public string Username { get; init; } = string.Empty;
+        public int Age { get; init; }
+        public string Email { get; init; } = string.Empty;
+        public decimal MonthlyIncome { get; init; }
+        public bool IsBlocked { get; init; }
+        public List<LoanResponseDto> Loans { get; init; } = new();
+        public UserType UserType { get; init; }
     }
 }

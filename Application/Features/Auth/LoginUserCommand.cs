@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Application.Features.Auth
 {
-   public class LoginUserCommand : IRequest<LoginResponseDto>
+   public record LoginUserCommand : IRequest<LoginResponseDto>
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string Username { get; init; } = string.Empty;
+        public string Password { get; init; } = string.Empty;
     }
 }

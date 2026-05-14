@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTO.Auth
+﻿namespace Application.DTO.Auth
 {
-    public class LoginResponseDto
+    public record LoginResponseDto
     {
-        public string Token { get; set; }
-        public DateTime Expiration { get; set; }
+        public string Token { get; init; } = string.Empty;
+        public DateTime Expiration { get; init; }
     }
 }

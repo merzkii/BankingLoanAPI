@@ -32,9 +32,9 @@ namespace LoanAPI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin,Accountant")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllUsersQuery query)
         {
-            var result = await _mediator.Send(new GetAllUsersQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 

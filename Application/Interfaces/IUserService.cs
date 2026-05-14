@@ -1,10 +1,5 @@
 ﻿using Application.DTO.User;
 using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application
 {
@@ -12,6 +7,7 @@ namespace Application
     {
         Task<User?> GetByIdAsync(int id);
         Task<List<User>> GetAllAsync();
+        Task<(List<User> Items, int TotalCount)> GetPagedAsync(UserQueryParameters parameters);
         Task<User?> GetByUsernameAsync(string username);
         Task RegisterAsync(User user);
         Task DeleteAsync(int userId);
