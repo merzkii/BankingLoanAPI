@@ -9,7 +9,6 @@ using Infrastructure.Persistance.Contexts;
 using Infrastructure.Persistance.Repositories;
 using LoanAPI.Middlewares;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using MediatR;
@@ -18,9 +17,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using AutoMapper;
 using LoanAPI.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 
 var builder = WebApplication.CreateBuilder(args);

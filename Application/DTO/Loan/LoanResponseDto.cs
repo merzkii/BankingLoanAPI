@@ -11,5 +11,20 @@ namespace Application.DTO.Loan
         public LoanType LoanType { get; init; }
         public LoanStatus Status { get; init; }
         public int UserId { get; init; }
+        public string? Purpose { get; init; }
+
+
+        public decimal InterestRate { get; init; }
+        public decimal MonthlyPayment { get; init; }
+        public decimal TotalRepayment { get; init; }
+
+
+        public DateTime SubmittedAt { get; init; }
+        public DateTime? ApprovedAt { get; init; }
+        public DateTime? RejectedAt { get; init; }
+
+
+        public string? RejectionReason { get; init; }
     }
 }
+

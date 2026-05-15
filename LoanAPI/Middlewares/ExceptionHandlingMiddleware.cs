@@ -31,9 +31,10 @@ namespace LoanAPI.Middlewares
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = ex switch
                 {
-                    Application.Exceptions.NotFoundException => StatusCodes.Status404NotFound,
+                    NotFoundException => StatusCodes.Status404NotFound,
                     ValidationException => StatusCodes.Status400BadRequest,
                     UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                    BusinessRuleException => StatusCodes.Status422UnprocessableEntity,
                     _ => StatusCodes.Status500InternalServerError
                 };
 
