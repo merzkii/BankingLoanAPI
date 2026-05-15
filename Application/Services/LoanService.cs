@@ -48,11 +48,15 @@ namespace Application.Services
                 Currency = request.Currency,
                 Period = request.Period,
                 LoanType = request.LoanType,
+                Purpose = request.Purpose,
                 Status = LoanStatus.InProcess,
                 SubmittedAt = DateTime.UtcNow
             };
 
             loan.CalculateFinancials();
+
+            if (user.MonthlyIncome <= 0)
+                throw new BusinessRuleException("Monthly income must be greater than zero to apply for a loan.");
 
             var dti = loan.MonthlyPayment / user.MonthlyIncome;
             if (dti > LoanRules.MaxDebtToIncomeRatio)

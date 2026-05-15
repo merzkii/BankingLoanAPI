@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260515104046_updateLoanDb")]
-    partial class updateLoanDb
+    [Migration("20260515112355_LoanStatus")]
+    partial class LoanStatus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,24 +33,39 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("AdminUsers");
                 });
@@ -143,8 +158,8 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("ChangedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ChangedByAdminId")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ChangedByAdminId")
+                        .HasColumnType("int");
 
                     b.Property<int>("FromStatus")
                         .HasColumnType("int");
@@ -153,16 +168,19 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("ToStatus")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChangedByAdminId");
+
                     b.HasIndex("LoanId");
 
-                    b.ToTable("LoanStatusHistory");
+                    b.ToTable("LoanStatusHistories");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -254,11 +272,19 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.LoanStatusHistory", b =>
                 {
+                    b.HasOne("Core.Entities.AdminUsers", "ChangedBy")
+                        .WithMany()
+                        .HasForeignKey("ChangedByAdminId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Core.Entities.Loan", "Loan")
                         .WithMany("StatusHistory")
                         .HasForeignKey("LoanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ChangedBy");
 
                     b.Navigation("Loan");
                 });

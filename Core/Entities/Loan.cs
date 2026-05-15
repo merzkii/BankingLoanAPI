@@ -33,7 +33,8 @@ namespace Core.Entities
             MonthlyPayment = monthlyRate == 0
                 ? Amount / Period
                 : Amount * monthlyRate / (1 - (decimal)Math.Pow((double)(1 + monthlyRate), -Period));
-            TotalRepayment = MonthlyPayment * Period;
+            MonthlyPayment = Math.Round(MonthlyPayment, 2);
+            TotalRepayment = Math.Round(MonthlyPayment * Period, 2);
         }
     }
 }

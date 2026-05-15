@@ -76,9 +76,9 @@ namespace LoanAPI.Controllers
 
         [HttpPost("reject/{loanId}")]
         [Authorize(Roles = "Accountant")]
-        public async Task<IActionResult> RejectLoan(int loanId)
+        public async Task<IActionResult> RejectLoan(int loanId, string reason)
         {
-            var result = await _mediator.Send(new RejectLoanCommand { LoanId = loanId });
+            var result = await _mediator.Send(new RejectLoanCommand { LoanId = loanId, Reason = reason });
             return Ok(result);
         }
     }

@@ -178,7 +178,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("LoanId");
 
-                    b.ToTable("loanStatusHistories");
+                    b.ToTable("LoanStatusHistories");
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>

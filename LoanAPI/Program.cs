@@ -1,30 +1,34 @@
 using Application;
 using Application.Features.Users.Commands.Register;
-using Application.Mapping;
 using Application.Interfaces;
+using Application.Mapping;
 using Application.Services;
+using Application.Validations.User;
+using Core.Entities;
 using Core.Interfaces;
 using FluentValidation;
 using Infrastructure.Persistance.Contexts;
 using Infrastructure.Persistance.Repositories;
 using LoanAPI.Middlewares;
-using Microsoft.EntityFrameworkCore;
-using Core.Entities;
-using Microsoft.AspNetCore.Identity;
+using LoanAPI.Services;
 using MediatR;
-using Application.Validations.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using LoanAPI.Services;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
