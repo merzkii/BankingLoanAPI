@@ -41,6 +41,16 @@ namespace Application.Services
             if (user.IsBlocked)
                 throw new UnauthorizedAccessException("You are not allowed to request a loan.");
 
+            var limits = LoanRules.AmountLimits[user.UserType][request.LoanType];
+            if (request.Amount < limits.Min || request.Amount > limits.Max)
+                throw new BusinessRuleException(
+                    $"Amount for {request.LoanType} as {user.UserType} must be between {limits.Min} and {limits.Max}.");
+
+            var maxPeriod = LoanRules.MaxPeriodMonths[user.UserType][request.LoanType];
+            if (request.Period > maxPeriod)
+                throw new BusinessRuleException(
+                    $"Max period for {request.LoanType} as {user.UserType} is {maxPeriod} months.");
+
             var loan = new Loan
             {
                 UserId = userId,
@@ -53,13 +63,14 @@ namespace Application.Services
                 SubmittedAt = DateTime.UtcNow
             };
 
-            loan.CalculateFinancials();
+            loan.CalculateFinancials(user.UserType);
 
             if (user.MonthlyIncome <= 0)
                 throw new BusinessRuleException("Monthly income must be greater than zero to apply for a loan.");
 
+            var maxDti = LoanRules.MaxDebtToIncomeRatio[user.UserType];
             var dti = loan.MonthlyPayment / user.MonthlyIncome;
-            if (dti > LoanRules.MaxDebtToIncomeRatio)
+            if (dti > maxDti)
                 throw new BusinessRuleException(
                     $"Monthly payment ({loan.MonthlyPayment:C}) exceeds 40% of your monthly income ({user.MonthlyIncome:C}).");
 

@@ -25,7 +25,6 @@ namespace Application.Features.Loans.Commands.CreateLoan
 
         public async Task<LoanResponseDto> Handle(CreateLoanCommand request, CancellationToken cancellationToken)
         {
-
             return await _loanService.CreateLoanAsync(_currentUserServicr.UserId, request.LoanRequest);
         }
     }

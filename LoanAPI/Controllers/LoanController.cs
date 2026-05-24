@@ -60,25 +60,25 @@ namespace LoanAPI.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(DeleteLoanCommand command)
         {
-            await _mediator.Send(new DeleteLoanCommand { LoanId = id });
+            await _mediator.Send(command);
             return NoContent();
         }
 
         [HttpPost("approve/{loanId}")]
         [Authorize(Roles = "Accountant")]
-        public async Task<IActionResult> ApproveLoan(int loanId)
+        public async Task<IActionResult> ApproveLoan(ApproveLoanCommand command)
         {
-            var result = await _mediator.Send(new ApproveLoanCommand { LoanId = loanId });
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
 
         [HttpPost("reject/{loanId}")]
         [Authorize(Roles = "Accountant")]
-        public async Task<IActionResult> RejectLoan(int loanId, string reason)
+        public async Task<IActionResult> RejectLoan(RejectLoanCommand command)
         {
-            var result = await _mediator.Send(new RejectLoanCommand { LoanId = loanId, Reason = reason });
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

@@ -9,33 +9,22 @@ namespace Application.Validations.Loan
         public CreateLoanCommandValidator()
         {
             RuleFor(x => x.LoanRequest.Amount)
-                .GreaterThan(0)
-                .Must((cmd, amount) =>
-                {
-                    var (min, max) = LoanRules.AmountLimits[cmd.LoanRequest.LoanType];
-                    return amount >= min && amount <= max;
-                })
-                .WithMessage(cmd =>
-                {
-                    var (min, max) = LoanRules.AmountLimits[cmd.LoanRequest.LoanType];
-                    return $"Amount for {cmd.LoanRequest.LoanType} must be between {min} and {max}";
-                });
+       .GreaterThan(0).WithMessage("Amount must be greater than zero.");
 
             RuleFor(x => x.LoanRequest.Currency)
+                .NotEmpty()
                 .Must(c => LoanRules.AllowedCurrencies.Contains(c))
                 .WithMessage($"Currency must be one of: {string.Join(", ", LoanRules.AllowedCurrencies)}");
 
             RuleFor(x => x.LoanRequest.Period)
-                .GreaterThan(0)
-                .Must((cmd, period) => period <= LoanRules.MaxPeriodMonths[cmd.LoanRequest.LoanType])
-                .WithMessage(cmd => $"Max period for {cmd.LoanRequest.LoanType} is {LoanRules.MaxPeriodMonths[cmd.LoanRequest.LoanType]} months.");
+                .GreaterThan(0).WithMessage("Period must be greater than zero.");
 
             RuleFor(x => x.LoanRequest.LoanType)
-                .IsInEnum();
+                .IsInEnum().WithMessage("Invalid loan type.");
 
             RuleFor(x => x.LoanRequest.Purpose)
-                .NotEmpty()
-                .MaximumLength(500);
+                .NotEmpty().WithMessage("Purpose is required.")
+                .MaximumLength(500).WithMessage("Purpose cannot exceed 500 characters.");
         }
     }
 }

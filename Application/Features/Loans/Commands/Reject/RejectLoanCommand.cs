@@ -3,9 +3,5 @@ using MediatR;
 
 namespace Application.Features.Loans.Commands.Reject
 {
-    public record RejectLoanCommand : IRequest<LoanResponseDto>
-    {
-        public int LoanId { get; init; }
-        public string? Reason { get; init; } = string.Empty;
-    }
+    public record RejectLoanCommand(int LoanId, string Reason) : IRequest<LoanResponseDto>;
 }

@@ -26,9 +26,9 @@ namespace Core.Entities
         public DateTime? RejectedAt { get; set; }
         public List<LoanStatusHistory> StatusHistory { get; set; } = new List<LoanStatusHistory>();
 
-        public void CalculateFinancials()
+        public void CalculateFinancials(UserType userType)
         {
-            InterestRate = LoanRules.GetInterestRate(LoanType);
+            InterestRate = LoanRules.GetInterestRate(LoanType, userType);
             decimal monthlyRate = InterestRate / 100 / 12;
             MonthlyPayment = monthlyRate == 0
                 ? Amount / Period

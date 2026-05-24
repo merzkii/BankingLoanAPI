@@ -3,8 +3,5 @@ using MediatR;
 
 namespace Application.Features.Loans.Commands.Approve
 {
-    public record ApproveLoanCommand : IRequest<LoanResponseDto>
-    {
-        public int LoanId { get; init; }
-    }
+    public record ApproveLoanCommand(int LoanId) : IRequest<LoanResponseDto>;
 }

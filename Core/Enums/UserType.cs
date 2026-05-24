@@ -2,8 +2,8 @@
 {
     public enum UserType
     {
-        User,
-        Enterpreuer,
+        Individual,
+        Entrepreneur,
         Company,
     }
 }

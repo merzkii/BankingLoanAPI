@@ -8,6 +8,7 @@ namespace Application.DTO.Loan
         public string Currency { get; init; } = string.Empty;
         public int Period { get; init; } 
         public LoanType LoanType { get; init; } 
+        public UserType UserType { get; init; }
         public string? Purpose { get; init; }
     }
 }
