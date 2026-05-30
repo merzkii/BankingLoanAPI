@@ -1,0 +1,28 @@
+﻿using Application.Notifications;
+using Infrastructure.Notifications;
+using Infrastructure.Notifications.Providers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Resend;
+
+namespace Infrastructure.DependencyInjection
+{
+    public static class Dependency
+    {
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services,
+            IConfiguration config)
+        {
+            services.AddResend(options =>
+            options.ApiToken = config["Resend:ApiKey"]!);
+
+            services.Configure<EmailProviderOptions>(
+                config.GetSection("Notifications:Email"));
+
+            services.AddScoped<INotificationProvider, EmailNotificationProvider>();
+            services.AddScoped<INotificationService, NotificationService>();
+
+            return services;
+        }
+    }
+}

@@ -1,0 +1,65 @@
+﻿<!-- Infrastructure/Notifications/Templates/loan-approved.html -->
+
+<!DOCTYPE html>
+
+<html>
+
+<body style="font-family: Arial, sans-serif; background:#f5f5f5; padding:20px;">
+
+    <div style="max-width:600px; margin:auto; background:#fff; border-radius:8px;
+
+              padding:32px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+
+
+
+        <h2 style="color:#1E3A5F;">Loan Approved ✅</h2>
+
+        <p>Dear {{FullName}},</p>
+
+        <p>
+            We are pleased to inform you that your loan application
+
+            <strong>{{Reference}}</strong> has been approved.
+        </p>
+
+
+
+        <table style="width:100%; border-collapse:collapse; margin:20px 0;">
+
+            <tr style="background:#E8F4FD;">
+
+                <td style="padding:10px; border:1px solid #D0D8E4;">Approved Amount</td>
+
+                <td style="padding:10px; border:1px solid #D0D8E4;"><strong>{{Amount}}</strong></td>
+
+            </tr>
+
+            <tr>
+
+                <td style="padding:10px; border:1px solid #D0D8E4;">Monthly Payment</td>
+
+                <td style="padding:10px; border:1px solid #D0D8E4;"><strong>{{MonthlyPayment}}</strong></td>
+
+            </tr>
+
+            <tr style="background:#E8F4FD;">
+
+                <td style="padding:10px; border:1px solid #D0D8E4;">Term</td>
+
+                <td style="padding:10px; border:1px solid #D0D8E4;"><strong>{{TermMonths}} months</strong></td>
+
+            </tr>
+
+        </table>
+
+
+
+        <p>Our team will be in touch with next steps.</p>
+
+        <p style="color:#888;">Banking Loan Team</p>
+
+    </div>
+
+</body>
+
+</html> 
