@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Application.DTO.User;
+﻿using Application.DTO.User;
+using Core.Entities.Users;
 namespace Core.Interfaces
 {
     public interface IUserRepository

@@ -1,6 +1,6 @@
 ﻿using Application.DTO.Loan;
 using Application.Exceptions;
-using Core.Entities;
+using Core.Entities.Loans;
 using Core.Interfaces;
 using Infrastructure.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using Application.DTO.User;
 using Application.Exceptions;
-using Core.Entities;
+using Core.Entities.Users;
 using Core.Interfaces;
 using Infrastructure.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;

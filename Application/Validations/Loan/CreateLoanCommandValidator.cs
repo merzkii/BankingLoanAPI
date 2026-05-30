@@ -1,5 +1,5 @@
 ﻿using Application.Features.Loans.Commands.CreateLoan;
-using Core.Entities;
+using Core.Entities.Loans;
 using FluentValidation;
 
 namespace Application.Validations.Loan

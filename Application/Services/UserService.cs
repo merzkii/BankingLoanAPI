@@ -1,5 +1,5 @@
 ﻿using Application.DTO.User;
-using Core.Entities;
+using Core.Entities.Users;
 using Core.Interfaces;
 
 namespace Application.Services

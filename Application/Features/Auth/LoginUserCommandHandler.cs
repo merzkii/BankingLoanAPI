@@ -1,6 +1,7 @@
 ﻿using Application.DTO.Auth;
 using Application.Interfaces;
-using Core.Entities;
+using Core.Entities.Admins;
+using Core.Entities.Users;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

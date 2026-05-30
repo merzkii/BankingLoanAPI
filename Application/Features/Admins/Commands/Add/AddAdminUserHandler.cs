@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.Admins;
 using MediatR;
 
 namespace Application.Features.Admins.Commands.Add

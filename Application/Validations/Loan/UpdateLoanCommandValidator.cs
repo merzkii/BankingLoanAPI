@@ -1,5 +1,5 @@
 ﻿using Application.Features.Loans.Commands.Update;
-using Core.Entities;
+using Core.Entities.Loans;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

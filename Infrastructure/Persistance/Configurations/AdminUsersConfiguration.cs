@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using Core.Entities.Admins;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

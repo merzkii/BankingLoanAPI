@@ -1,4 +1,7 @@
 ﻿using Core.Entities;
+using Core.Entities.Admins;
+using Core.Entities.Loans;
+using Core.Entities.Users;
 using Infrastructure.Persistance.Configurations;
 using Microsoft.EntityFrameworkCore;
 

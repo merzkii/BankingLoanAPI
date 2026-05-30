@@ -3,6 +3,7 @@ using Application.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.Loans;
 using Core.Enums;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Http;

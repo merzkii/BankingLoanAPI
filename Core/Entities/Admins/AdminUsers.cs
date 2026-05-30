@@ -1,6 +1,6 @@
 ﻿using Core.Enums;
 
-namespace Core.Entities
+namespace Core.Entities.Admins
 {
     public class AdminUsers
     {

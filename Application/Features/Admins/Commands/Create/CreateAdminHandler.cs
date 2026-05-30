@@ -1,7 +1,7 @@
 ﻿using Application.DTO.Auth;
 using Application.Exceptions;
 using Application.Interfaces;
-using Core.Entities;
+using Core.Entities.Admins;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

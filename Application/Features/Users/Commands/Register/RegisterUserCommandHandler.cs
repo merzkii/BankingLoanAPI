@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNet.Identity;
 using Application.Interfaces;
 using Application.Exceptions;
+using Core.Entities.Users;
 
 namespace Application.Features.Users.Commands.Register
 {

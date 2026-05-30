@@ -1,10 +1,11 @@
 ﻿using Application.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Core.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Core.Entities.Admins;
+using Core.Entities.Users;
 
 namespace Application.Services
 {

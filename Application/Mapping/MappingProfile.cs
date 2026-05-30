@@ -1,8 +1,10 @@
 ﻿using Application.DTO.User;
-using Core.Entities;
 using AutoMapper;
 using Application.DTO.Loan;
 using Application.DTO.AdminUser;
+using Core.Entities.Admins;
+using Core.Entities.Users;
+using Core.Entities.Loans;
 
 namespace Application.Mapping
 {

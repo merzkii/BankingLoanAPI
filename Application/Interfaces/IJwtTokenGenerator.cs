@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core.Entities.Admins;
+using Core.Entities.Users;
 
 namespace Application.Interfaces
 {

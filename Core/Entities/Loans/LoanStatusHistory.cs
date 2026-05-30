@@ -1,4 +1,6 @@
-﻿using Core.Enums;
+﻿using Core.Entities.Admins;
+using Core.Entities.Loans;
+using Core.Enums;
 
 namespace Core.Entities
 {

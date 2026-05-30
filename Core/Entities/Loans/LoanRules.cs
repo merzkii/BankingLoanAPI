@@ -1,7 +1,7 @@
 ﻿using Core.Enums;
 using System.Reflection.Metadata;
 
-namespace Core.Entities
+namespace Core.Entities.Loans
 {
     public static class LoanRules
     {

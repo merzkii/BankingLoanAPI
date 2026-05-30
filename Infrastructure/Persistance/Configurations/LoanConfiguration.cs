@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using Core.Entities.Loans;
 using Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

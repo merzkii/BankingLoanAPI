@@ -1,5 +1,5 @@
 ﻿using Application.DTO.Loan;
-using Core.Entities;
+using Core.Entities.Loans;
 
 namespace Core.Interfaces
 {

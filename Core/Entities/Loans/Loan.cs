@@ -1,6 +1,8 @@
-﻿using Core.Enums;
+﻿using Core.Entities.Admins;
+using Core.Entities.Users;
+using Core.Enums;
 
-namespace Core.Entities
+namespace Core.Entities.Loans
 {
     public class Loan
     {
