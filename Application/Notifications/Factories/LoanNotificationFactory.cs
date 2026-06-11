@@ -20,7 +20,7 @@ namespace Application.Notifications.Factories
                     ["FullName"] = data.FullName,
                     ["Amount"] = data.ApprovedAmount.ToString("C"),
                     ["MonthlyPayment"] = data.MonthlyPayment.ToString("C"),
-                    ["TermMonths"] = data.TermMonths.ToString("C"),
+                    ["TermMonths"] = data.TermMonths.ToString(),
                     ["Reference"] = data.LoanReference,
                 },
             };

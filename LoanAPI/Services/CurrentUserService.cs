@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Core.Enums;
 using System.Security.Claims;
 
 namespace LoanAPI.Services
@@ -33,6 +34,8 @@ namespace LoanAPI.Services
 
         public bool IsAccountant => Role == "Accountant";
 
-        public bool IsUser => Role == "User";
+        public bool IsUser => Role == nameof(UserType.Individual)
+                   || Role == nameof(UserType.Entrepreneur)
+                   || Role == nameof(UserType.Company);
     }
 }

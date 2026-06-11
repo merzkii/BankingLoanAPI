@@ -18,6 +18,12 @@
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="Templates\**\*.html">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
