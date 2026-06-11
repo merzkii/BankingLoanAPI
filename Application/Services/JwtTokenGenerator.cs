@@ -20,14 +20,15 @@ namespace Application.Services
 
         public string GenerateToken(User user)
         {
+            var jwtKey = _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured.");
             var claims = new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Role, user.UserType.ToString())
-        };
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.Username ?? string.Empty),
+                new Claim(ClaimTypes.Role, user.UserType.ToString())
+            };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
@@ -43,15 +44,14 @@ namespace Application.Services
 
         public string GenerateToken(AdminUsers adminUser)
         {
+            var jwtKey = _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured.");
             var claims = new[]
             {
-
-                    new Claim(ClaimTypes.NameIdentifier, adminUser.Id.ToString()),
-            new Claim(ClaimTypes.Name, adminUser.Username),
-            new Claim(ClaimTypes.Role, adminUser.Role.ToString())
-
+                new Claim(ClaimTypes.NameIdentifier, adminUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, adminUser.Username ?? string.Empty),
+                new Claim(ClaimTypes.Role, adminUser.Role.ToString())
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

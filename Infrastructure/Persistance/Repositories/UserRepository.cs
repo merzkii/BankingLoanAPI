@@ -82,10 +82,10 @@ namespace Infrastructure.Persistance.Repositories
             {
                 var search = parameters.Search.Trim();
                 query = query.Where(user =>
-                    user.FirstName.Contains(search) ||
-                    user.LastName.Contains(search) ||
-                    user.Username.Contains(search) ||
-                    user.Email.Contains(search));
+                    (user.FirstName != null && user.FirstName.Contains(search)) ||
+                    (user.LastName != null && user.LastName.Contains(search)) ||
+                    (user.Username != null && user.Username.Contains(search)) ||
+                    (user.Email != null && user.Email.Contains(search)));
             }
 
             if (parameters.UserType.HasValue)

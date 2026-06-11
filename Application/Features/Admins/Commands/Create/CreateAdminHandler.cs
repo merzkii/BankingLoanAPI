@@ -34,9 +34,10 @@ namespace Application.Features.Admins.Commands.Create
                 Surname = request.LastName,
                 Username = request.Username,
                 Email = request.Email,
-                Role = request.Role,
-                PasswordHash = _passwordHasher.HashPassword(null, request.Password)
+                Role = request.Role
             };
+
+            adminUser.PasswordHash = _passwordHasher.HashPassword(adminUser, request.Password);
 
             await _adminUserRepository.AddAsync(adminUser);
             var token = _jwtTokenGenerator.GenerateToken(adminUser);

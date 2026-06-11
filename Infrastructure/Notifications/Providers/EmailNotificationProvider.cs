@@ -43,9 +43,12 @@ namespace Infrastructure.Notifications.Providers
 
             var html = File.ReadAllText(templatePath);
 
-            foreach (var (key, value) in message.TemplateData)
+            if (message.TemplateData != null)
             {
-                html = html.Replace($"{{{{{key}}}}}", value);
+                foreach (var (key, value) in message.TemplateData)
+                {
+                    html = html.Replace($"{{{{{key}}}}}", value);
+                }
             }
 
             return html;

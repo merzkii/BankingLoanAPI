@@ -32,7 +32,7 @@ namespace Application.Features.Auth
         public async Task<LoginResponseDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userService.GetByUsernameAsync(request.Username);
-            if (user != null)
+            if (user != null && user.Password != null)
             {
                 var verify = _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password);
                 if (verify != PasswordVerificationResult.Failed)
@@ -48,6 +48,7 @@ namespace Application.Features.Auth
 
             var adminUser = await _adminUserRepository.GetByUsernameAsync(request.Username);
             if (adminUser == null ||
+                string.IsNullOrEmpty(adminUser.PasswordHash) ||
                 _adminPasswordHasher.VerifyHashedPassword(adminUser, adminUser.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
             {
                 throw new UnauthorizedAccessException("Invalid username or password.");
