@@ -19,9 +19,13 @@ namespace Application.Mapping
 
             CreateMap<Loan, LoanResponseDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.LoanId))
+                .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User!.FirstName + " " + src.User!.LastName))
+                .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User!.Email))
+                .ForMember(dest => dest.TermMonths, opt => opt.MapFrom(src => src.Period))
                 .ReverseMap()
                 .ForMember(dest => dest.LoanId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.User, opt => opt.Ignore());
+              
 
             CreateMap<AdminUsers, AdminUserResponseDTO>()
                 .ReverseMap()

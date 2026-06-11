@@ -61,7 +61,8 @@ namespace Application.Services
                 LoanType = request.LoanType,
                 Purpose = request.Purpose,
                 Status = LoanStatus.InProcess,
-                SubmittedAt = DateTime.UtcNow
+                SubmittedAt = DateTime.UtcNow,
+                Reference = $"LN-{DateTime.UtcNow:yyyyMMdd}-{Guid.NewGuid().ToString("N")[..6].ToUpper()}"
             };
 
             loan.CalculateFinancials(user.UserType);
@@ -81,7 +82,7 @@ namespace Application.Services
             return _mapper.Map<LoanResponseDto>(loan);
         }
 
-        public async Task<LoanResponseDto> ApproveLoanAsync(int loanId)
+        public async Task<LoanResponseDto> ApproveLoanAsync(int loanId, CancellationToken cancellationToken)
         {
             if (!_currentUserService.IsAdmin && !_currentUserService.IsAccountant)
                 throw new UnauthorizedAccessException("Only admins or accountants can approve loans.");
@@ -111,7 +112,7 @@ namespace Application.Services
             return _mapper.Map<LoanResponseDto>(loan);
         }
 
-        public async Task<LoanResponseDto> RejectLoanAsync(int loanId, string reason)
+        public async Task<LoanResponseDto> RejectLoanAsync(int loanId, string reason, CancellationToken cancellationToken)
         {
             if (!_currentUserService.IsAdmin && !_currentUserService.IsAccountant)
                 throw new UnauthorizedAccessException("Only admins or accountants can reject loans.");

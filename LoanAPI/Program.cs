@@ -8,6 +8,7 @@ using Core.Entities.Admins;
 using Core.Entities.Users;
 using Core.Interfaces;
 using FluentValidation;
+using Infrastructure.DependencyInjection;
 using Infrastructure.Persistance.Contexts;
 using Infrastructure.Persistance.Repositories;
 using LoanAPI.Middlewares;
@@ -71,6 +72,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IPasswordHasher<AdminUsers>, PasswordHasher<AdminUsers>>();
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));

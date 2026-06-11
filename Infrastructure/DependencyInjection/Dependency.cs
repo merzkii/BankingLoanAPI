@@ -19,6 +19,7 @@ namespace Infrastructure.DependencyInjection
             services.Configure<EmailProviderOptions>(
                 config.GetSection("Notifications:Email"));
 
+
             services.AddScoped<INotificationProvider, EmailNotificationProvider>();
             services.AddScoped<INotificationService, NotificationService>();
 

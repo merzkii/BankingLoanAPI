@@ -4,6 +4,6 @@ namespace Application.Notifications
 {
     public interface INotificationService
     {
-        Task SendAsync(NotificationMessage message);
+        Task SendAsync(NotificationMessage message, CancellationToken cancellationToken);
     }
 }

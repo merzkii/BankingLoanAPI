@@ -118,6 +118,7 @@ namespace Infrastructure.Persistance.Repositories
             var loan = await _context.Loans
                 .AsNoTracking()
                 .Include(x => x.User)
+                .Include(i=>i.StatusHistory)
                 .FirstOrDefaultAsync(x => x.LoanId == id);
 
             if (loan == null)

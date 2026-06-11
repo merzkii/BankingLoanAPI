@@ -15,7 +15,7 @@ namespace Infrastructure.Notifications
             _logger = logger;
         }
 
-        public async Task SendAsync(NotificationMessage message)
+        public async Task SendAsync(NotificationMessage message, CancellationToken cancellationToken)
         {
             var provider = _providers.FirstOrDefault(p => p.Supports(message.Channel));
 

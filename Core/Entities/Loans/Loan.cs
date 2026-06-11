@@ -26,6 +26,7 @@ namespace Core.Entities.Loans
         public DateTime SubmittedAt { get; set; }
         public DateTime? ApprovedAt { get; set; }
         public DateTime? RejectedAt { get; set; }
+        public string Reference { get; set; } = string.Empty;
         public List<LoanStatusHistory> StatusHistory { get; set; } = new List<LoanStatusHistory>();
 
         public void CalculateFinancials(UserType userType)

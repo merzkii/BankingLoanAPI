@@ -1,6 +1,7 @@
 ﻿using Application.Notifications;
 using Core.Entities.Notifications;
 using Core.Enums;
+using Microsoft.Extensions.Options;
 using Resend;
 using System.Collections.Generic;
 
@@ -11,10 +12,10 @@ namespace Infrastructure.Notifications.Providers
         private readonly IResend _resend;
         private readonly EmailProviderOptions _options;
 
-        public EmailNotificationProvider(IResend resend, EmailProviderOptions options)
+        public EmailNotificationProvider(IResend resend, IOptions<EmailProviderOptions> options)
         {
             _resend = resend;
-            _options = options;
+            _options = options.Value;
         }
 
         public bool Supports(NotificationChannel channel) =>
