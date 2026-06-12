@@ -6,8 +6,6 @@ using Core.Entities;
 using Core.Entities.Loans;
 using Core.Enums;
 using Core.Interfaces;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 
 namespace Application.Services
 {

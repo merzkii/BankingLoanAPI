@@ -3,7 +3,6 @@ using Core.Entities.Notifications;
 using Core.Enums;
 using Microsoft.Extensions.Options;
 using Resend;
-using System.Collections.Generic;
 
 namespace Infrastructure.Notifications.Providers
 {
