@@ -1,5 +1,4 @@
-﻿using Application.DTO.Auth;
-using Application.Interfaces.ForAuth;
+﻿using Application.Interfaces.ForAuth;
 using Core.Entities.Admins;
 using Core.Entities.Users;
 using Microsoft.Extensions.Configuration;

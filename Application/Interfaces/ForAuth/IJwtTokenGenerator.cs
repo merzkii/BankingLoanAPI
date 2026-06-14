@@ -1,5 +1,4 @@
-﻿using Application.DTO.Auth;
-using Core.Entities.Admins;
+﻿using Core.Entities.Admins;
 using Core.Entities.Users;
 
 namespace Application.Interfaces.ForAuth

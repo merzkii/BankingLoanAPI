@@ -1,6 +1,11 @@
-﻿using Application.Notifications;
+﻿using Application.Interfaces;
+using Application.Interfaces.ForAuth;
+using Application.Notifications;
+using Core.Interfaces;
 using Infrastructure.Notifications;
 using Infrastructure.Notifications.Providers;
+using Infrastructure.Persistance.Repositories;
+using Infrastructure.Persistance.Repositories.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Resend;
@@ -19,7 +24,10 @@ namespace Infrastructure.DependencyInjection
             services.Configure<EmailProviderOptions>(
                 config.GetSection("Notifications:Email"));
 
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILoanRepository, LoanRepository>();
+            services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<INotificationProvider, EmailNotificationProvider>();
             services.AddScoped<INotificationService, NotificationService>();
 

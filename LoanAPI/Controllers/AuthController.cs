@@ -1,5 +1,7 @@
 ﻿using Application.DTO.Auth;
-using Application.Features.Auth;
+using Application.Features.Auth.Commands.Login;
+using Application.Features.Auth.Commands.Refresh;
+using Application.Features.Auth.Commands.Revoke;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +29,27 @@ namespace LoanAPI.Controllers
             };
             var result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequestDto request)
+        {
+            var result = await _mediator.Send(new RefreshTokenCommand
+            {
+                RefreshToken = request.RefreshToken
+            });
+
+            return Ok(result);
+        }
+
+        [HttpPost("revoke")]
+        public async Task<IActionResult> RevokeToken([FromBody] RefreshTokenRequestDto request)
+        {
+            await _mediator.Send(new RevokeTokenCommand
+            {
+                RefreshToken = request.RefreshToken
+            });
+            return NoContent();
         }
     }
 }

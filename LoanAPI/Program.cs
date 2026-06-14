@@ -7,11 +7,9 @@ using Application.Services;
 using Application.Validations.User;
 using Core.Entities.Admins;
 using Core.Entities.Users;
-using Core.Interfaces;
 using FluentValidation;
 using Infrastructure.DependencyInjection;
 using Infrastructure.Persistance.Contexts;
-using Infrastructure.Persistance.Repositories;
 using LoanAPI.Middlewares;
 using LoanAPI.Services;
 using MediatR;
@@ -35,10 +33,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ILoanRepository, LoanRepository>();
-builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddValidatorsFromAssemblyContaining<UserRequestValidator>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddScoped<IPasswordHasher,PasswordHasher>();
