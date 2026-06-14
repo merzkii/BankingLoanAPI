@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Entities.Admins;
+using Core.Entities.Auth;
 using Core.Entities.Loans;
 using Core.Entities.Users;
 using Infrastructure.Persistance.Configurations;
@@ -13,6 +14,7 @@ namespace Infrastructure.Persistance.Contexts
         public DbSet<Loan> Loans { get; set; }
         public DbSet<AdminUsers> AdminUsers { get; set; }
         public DbSet<LoanStatusHistory> LoanStatusHistories { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

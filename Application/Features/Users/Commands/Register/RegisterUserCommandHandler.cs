@@ -2,9 +2,9 @@
 using Core.Entities;
 using MediatR;
 using Microsoft.AspNet.Identity;
-using Application.Interfaces;
 using Application.Exceptions;
 using Core.Entities.Users;
+using Application.Interfaces.ForAuth;
 
 namespace Application.Features.Users.Commands.Register
 {

@@ -1,17 +1,20 @@
-﻿using Application.Interfaces;
+﻿using Application.DTO.Auth;
+using Application.Interfaces.ForAuth;
+using Core.Entities.Admins;
+using Core.Entities.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
-using Core.Entities.Admins;
-using Core.Entities.Users;
 
 namespace Application.Services
 {
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly IConfiguration _configuration;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public JwtTokenGenerator(IConfiguration configuration)
         {
@@ -63,6 +66,18 @@ namespace Application.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var bytes = RandomNumberGenerator.GetBytes(64);
+            return Convert.ToBase64String(bytes);
+        }
+
+        public string HashToken(string rawToken)
+        {
+            var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(rawToken));
+            return Convert.ToHexString(bytes).ToLower();
         }
     }
 }

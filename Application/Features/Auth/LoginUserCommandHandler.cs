@@ -1,5 +1,6 @@
 ﻿using Application.DTO.Auth;
 using Application.Interfaces;
+using Application.Interfaces.ForAuth;
 using Core.Entities.Admins;
 using Core.Entities.Users;
 using MediatR;

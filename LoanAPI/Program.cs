@@ -1,6 +1,7 @@
 using Application;
 using Application.Features.Users.Commands.Register;
 using Application.Interfaces;
+using Application.Interfaces.ForAuth;
 using Application.Mapping;
 using Application.Services;
 using Application.Validations.User;
