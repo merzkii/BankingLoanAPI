@@ -1,4 +1,5 @@
 ﻿using Application.DTO.Loan;
+using Application.DTO.Repayment;
 using Application.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
@@ -13,17 +14,20 @@ namespace Application.Services
     {
         private readonly ILoanRepository _loanRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ILoanRepaymentRepository _loanRepaymentRepository;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
         public LoanService(
             ILoanRepository loanRepository,
             IUserRepository userRepository,
+            ILoanRepaymentRepository loanRepaymentRepository,
             IMapper mapper,
             ICurrentUserService currentUserService)
         {
             _loanRepository = loanRepository;
             _userRepository = userRepository;
+            _loanRepaymentRepository = loanRepaymentRepository;
             _mapper = mapper;
             _currentUserService = currentUserService;
         }
@@ -140,6 +144,89 @@ namespace Application.Services
             await _loanRepository.SaveChangesAsync();
 
             return _mapper.Map<LoanResponseDto>(loan);
+        }
+
+        public async Task<RepaymentResponseDto> MakeRepaymentAsync(int loanId, MakeRepaymentDto dto)
+        {
+            if (!_currentUserService.IsAdmin && !_currentUserService.IsAccountant)
+            {
+                throw new UnauthorizedAccessException("Only admins or accountants can record payments.");
+            }
+
+            var loan = await _loanRepository.GetLoanByIdAsync(loanId);
+
+            if (loan == null)
+            {
+                throw new NotFoundException("Loan not found.");
+            }
+
+            if (loan.Status != LoanStatus.Approved)
+            {
+                throw new BusinessRuleException("Payments can only be made on approved loans.");
+            }
+
+            if (dto.Amount <= 0)
+            {
+                throw new BusinessRuleException("Payment amount must be greater than zero.");
+            }
+
+            if (dto.Amount > loan.RemainingBalance)
+            {
+                throw new BusinessRuleException($"Payment amount {dto.Amount:C} exceeds remaining balance {loan.RemainingBalance:C}.");
+            }
+
+            var balanceBefore = loan.RemainingBalance;
+            var balanceAfter = balanceBefore - dto.Amount;
+
+            var repayment = new LoanRepayment
+            {
+                LoanId = loanId,
+                Amount = dto.Amount,
+                PaidAt = DateTime.UtcNow,
+                Notes = dto.Notes ?? string.Empty,
+                RemainingBalanceBefore = balanceBefore,
+                RemainingBalanceAfter = balanceAfter
+            };
+
+            await _loanRepaymentRepository.AddAsync(repayment);
+
+            if (balanceAfter <= 0)
+            {
+                loan.StatusHistory.Add(new LoanStatusHistory
+                {
+                    FromStatus = loan.Status,
+                    ToStatus = LoanStatus.Completed,
+                    ChangedAt = DateTime.UtcNow,
+                    ChangedByAdminId = _currentUserService.UserId
+                });
+                loan.Status = LoanStatus.Completed;
+                await _loanRepository.UpdateLoanAsync(loan);
+            }
+
+            await _loanRepaymentRepository.SaveChangesAsync();
+
+            return _mapper.Map<RepaymentResponseDto>(repayment);
+        }
+
+        public async Task<LoanRepaymentSummaryDto> GetRepaymentsAsync(int loanId)
+        {
+            var loan = await _loanRepository.GetLoanByIdAsync(loanId);
+
+            if (loan == null)
+            {
+                throw new NotFoundException("Loan not found.");
+            }
+
+            var repayments = await _loanRepaymentRepository.GetByLoanIdAsync(loanId);
+
+            return new LoanRepaymentSummaryDto
+            {
+                TotalRepayment = loan.TotalRepayment,
+                TotalPaid = loan.TotalPaid,
+                RemainingBalance = loan.RemainingBalance,
+                IsFullyPaid = loan.IsFullyPaid,
+                Repayments = _mapper.Map<List<RepaymentResponseDto>>(repayments)
+            };
         }
     }
 }

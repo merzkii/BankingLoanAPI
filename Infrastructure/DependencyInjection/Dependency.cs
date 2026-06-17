@@ -30,6 +30,7 @@ namespace Infrastructure.DependencyInjection
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<INotificationProvider, EmailNotificationProvider>();
             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<ILoanRepaymentRepository, LoanRepaymentRepository>();
 
             return services;
         }

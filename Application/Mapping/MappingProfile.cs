@@ -5,6 +5,7 @@ using Application.DTO.AdminUser;
 using Core.Entities.Admins;
 using Core.Entities.Users;
 using Core.Entities.Loans;
+using Application.DTO.Repayment;
 
 namespace Application.Mapping
 {
@@ -30,6 +31,8 @@ namespace Application.Mapping
             CreateMap<AdminUsers, AdminUserResponseDTO>()
                 .ReverseMap()
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+
+            CreateMap<LoanRepayment, RepaymentResponseDto>();
         }
     }
 }
