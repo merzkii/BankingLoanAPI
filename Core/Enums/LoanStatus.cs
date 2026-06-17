@@ -4,6 +4,7 @@
     {
         InProcess,
         Approved,
-        Rejected
+        Rejected,
+        Completed
     }
 }

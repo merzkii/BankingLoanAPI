@@ -28,6 +28,11 @@ namespace Core.Entities.Loans
         public DateTime? RejectedAt { get; set; }
         public string Reference { get; set; } = string.Empty;
         public List<LoanStatusHistory> StatusHistory { get; set; } = new List<LoanStatusHistory>();
+        public List<LoanRepayment> Repayments { get; set; } = new();
+
+        public decimal TotalPaid => Repayments.Sum(r => r.Amount);
+        public decimal RemainingBalance => TotalRepayment - TotalPaid;
+        public bool IsFullyPaid => RemainingBalance <= 0;
 
         public void CalculateFinancials(UserType userType)
         {

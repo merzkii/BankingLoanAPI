@@ -15,6 +15,7 @@ namespace Infrastructure.Persistance.Contexts
         public DbSet<AdminUsers> AdminUsers { get; set; }
         public DbSet<LoanStatusHistory> LoanStatusHistories { get; set; }
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<LoanRepayment> LoanRepayments => Set<LoanRepayment>();
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -25,6 +26,7 @@ namespace Infrastructure.Persistance.Contexts
             modelBuilder.ApplyConfiguration(new AdminUsersConfiguration());
             modelBuilder.ApplyConfiguration(new LoanStatusHistoryConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
+            modelBuilder.ApplyConfiguration(new LoanRepaymentConfiguration());
         }
     }
 }
