@@ -116,9 +116,9 @@ namespace Infrastructure.Persistance.Repositories
             ValidateId(id, nameof(id));
 
             var loan = await _context.Loans
-                .AsNoTracking()
                 .Include(x => x.User)
-                .Include(i=>i.StatusHistory)
+                .Include(i => i.StatusHistory)
+                .Include(r => r.Repayments)
                 .FirstOrDefaultAsync(x => x.LoanId == id);
 
             if (loan == null)
