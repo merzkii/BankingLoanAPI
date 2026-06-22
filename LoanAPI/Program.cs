@@ -1,21 +1,11 @@
-using Application;
-using Application.Features.Users.Commands.Register;
+using Application.Dependency;
 using Application.Interfaces;
-using Application.Interfaces.ForAuth;
-using Application.Mapping;
-using Application.Services;
-using Application.Validations.User;
-using Core.Entities.Admins;
-using Core.Entities.Users;
-using FluentValidation;
 using Infrastructure.DependencyInjection;
 using Infrastructure.Persistance.Contexts;
 using LoanAPI.Middlewares;
 using LoanAPI.Services;
-using MediatR;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -31,13 +21,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ILoanService, LoanService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddValidatorsFromAssemblyContaining<UserRequestValidator>();
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-builder.Services.AddScoped<IPasswordHasher,PasswordHasher>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -66,13 +51,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddScoped<IPasswordHasher<AdminUsers>, PasswordHasher<AdminUsers>>();
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
