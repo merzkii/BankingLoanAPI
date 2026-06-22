@@ -4,14 +4,17 @@ using Application.Interfaces.ForAuth;
 using Application.Mapping;
 using Application.Services;
 using Application.Validations.User;
+using Core.Entities.Admins;
+using Core.Entities.Users;
+using FluentValidation;
+using Mapster;
+using MapsterMapper;
 using MediatR;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation;
-using Microsoft.AspNet.Identity;
-using Core.Entities.Users;
-using Microsoft.AspNetCore.Identity;
-using Core.Entities.Admins;
+using System.Reflection;
 
 namespace Application.Dependency
 {
@@ -26,7 +29,10 @@ namespace Application.Dependency
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
-            services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
+            var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
+            typeAdapterConfig.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(typeAdapterConfig);
+            services.AddScoped<IMapper, ServiceMapper>();
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly));
 

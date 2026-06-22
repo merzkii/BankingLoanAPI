@@ -1,6 +1,6 @@
 ﻿using Application.DTO.Common;
 using Application.DTO.Loan;
-using AutoMapper;
+using MapsterMapper;
 using Core.Interfaces;
 using MediatR;
 

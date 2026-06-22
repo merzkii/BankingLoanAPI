@@ -1,7 +1,7 @@
 ﻿using Application.DTO.User;
 using Application.Exceptions;
 using Application.Interfaces;
-using AutoMapper;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 

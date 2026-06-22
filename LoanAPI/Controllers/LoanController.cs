@@ -8,6 +8,7 @@ using Application.Features.Loans.Queries.GetById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace LoanAPI.Controllers
 {
@@ -39,6 +40,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpPost("create")]
+        [EnableRateLimiting("api")]
         [Authorize]
         public async Task<IActionResult> Create(CreateLoanCommand command)
         {

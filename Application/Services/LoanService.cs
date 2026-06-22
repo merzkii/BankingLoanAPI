@@ -2,11 +2,11 @@
 using Application.DTO.Repayment;
 using Application.Exceptions;
 using Application.Interfaces;
-using AutoMapper;
 using Core.Entities;
 using Core.Entities.Loans;
 using Core.Enums;
 using Core.Interfaces;
+using MapsterMapper;
 
 namespace Application.Services
 {

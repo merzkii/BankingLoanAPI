@@ -6,13 +6,29 @@ using LoanAPI.Middlewares;
 using LoanAPI.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "Logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 7));
 
 // Add services to the container.
 
@@ -61,7 +77,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     {
         throw new InvalidOperationException("Database connection string 'DefaultConnection' is not configured.");
     }
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, o =>
+    o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
 });
 builder.Services.AddAuthentication(options =>
 {
@@ -84,6 +101,28 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("login", config =>
+{
+    config.Window = TimeSpan.FromMinutes(1);
+    config.PermitLimit = 5;
+    config.QueueLimit = 0;
+    config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+});
+
+    options.AddFixedWindowLimiter("api", config =>
+{
+    config.Window = TimeSpan.FromMinutes(1);
+    config.PermitLimit = 60;
+    config.QueueLimit = 0;
+    config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+});
+
+    options.RejectionStatusCode = 429;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -96,6 +135,10 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseRouting();
+
+app.UseSerilogRequestLogging();
+
+app.UseRateLimiter();
 
 app.UseHttpsRedirection();
 

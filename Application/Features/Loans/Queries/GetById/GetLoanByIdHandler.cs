@@ -1,7 +1,7 @@
 ﻿using Application.DTO.Loan;
 using Application.Exceptions;
 using Application.Interfaces;
-using AutoMapper;
+using MapsterMapper;
 using Core.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;

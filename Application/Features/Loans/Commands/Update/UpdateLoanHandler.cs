@@ -1,7 +1,7 @@
 ﻿using Application.DTO.Loan;
 using Application.Exceptions;
 using Application.Interfaces;
-using AutoMapper;
+using MapsterMapper;
 using Core.Enums;
 using Core.Interfaces;
 using MediatR;

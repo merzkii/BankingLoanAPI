@@ -1,7 +1,7 @@
 ﻿using Application.DTO.AdminUser;
 using Application.Exceptions;
 using Application.Interfaces;
-using AutoMapper;
+using MapsterMapper;
 using MediatR;
 
 namespace Application.Features.Admins.Queries.GetById

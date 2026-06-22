@@ -4,6 +4,7 @@ using Application.Features.Auth.Commands.Refresh;
 using Application.Features.Auth.Commands.Revoke;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace LoanAPI.Controllers
 {
@@ -19,6 +20,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpPost("login")]
+        [EnableRateLimiting("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest)
         {
             var command = new LoginUserCommand
@@ -32,6 +34,7 @@ namespace LoanAPI.Controllers
         }
 
         [HttpPost("refresh")]
+        [EnableRateLimiting("login")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequestDto request)
         {
             var result = await _mediator.Send(new RefreshTokenCommand

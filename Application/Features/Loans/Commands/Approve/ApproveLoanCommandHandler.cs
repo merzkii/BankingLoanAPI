@@ -2,7 +2,6 @@
 using Application.Interfaces;
 using Application.Notifications;
 using Application.Notifications.Factories;
-using AutoMapper;
 using Core.Entities.Notifications.Events;
 using MediatR;
 

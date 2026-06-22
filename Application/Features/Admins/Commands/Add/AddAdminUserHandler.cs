@@ -1,8 +1,7 @@
 ﻿using Application.DTO.AdminUser;
 using Application.Interfaces;
-using AutoMapper;
-using Core.Entities;
 using Core.Entities.Admins;
+using MapsterMapper;
 using MediatR;
 
 namespace Application.Features.Admins.Commands.Add

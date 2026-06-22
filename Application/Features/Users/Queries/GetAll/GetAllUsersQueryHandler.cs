@@ -1,6 +1,6 @@
 ﻿using Application.DTO.Common;
 using Application.DTO.User;
-using AutoMapper;
+using MapsterMapper;
 using MediatR;
 
 namespace Application.Features.Users.Queries.GetAll

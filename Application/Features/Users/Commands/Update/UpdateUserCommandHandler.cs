@@ -1,5 +1,5 @@
 ﻿using Application.DTO.User;
-using AutoMapper;
+using MapsterMapper;
 using MediatR;
 using SendGrid.Helpers.Errors.Model;
 
