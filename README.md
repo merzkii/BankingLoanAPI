@@ -105,7 +105,17 @@ Required configuration:
     "Email": {
       "FromAddress": "no-reply@example.com"
     }
-  }
+  },
+   "Serilog": {
+   "MinimumLevel": {
+     "Default": "Information",
+     "Override": {
+       "Microsoft": "Warning",
+       "Microsoft.EntityFrameworkCore": "Warning",
+       "System": "Warning"
+     }
+   }
+ }
 }
 ```
 
