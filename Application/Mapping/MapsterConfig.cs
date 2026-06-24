@@ -27,8 +27,8 @@ namespace Application.Mapping
                 .Map(dest => dest.LoanId, src => src.Id)
                 .Ignore(dest => dest.User!);
 
-            config.NewConfig<AdminUsers, AdminUserResponseDTO>();
-            config.NewConfig<AdminUserResponseDTO, AdminUsers>()
+            config.NewConfig<AdminUsers, AdminUserResponseDto>();
+            config.NewConfig<AdminUserResponseDto, AdminUsers>()
                 .Ignore(dest => dest.PasswordHash!);
 
             config.NewConfig<LoanRepayment, RepaymentResponseDto>();

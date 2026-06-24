@@ -13,7 +13,6 @@ namespace Application.Services
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly IConfiguration _configuration;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public JwtTokenGenerator(IConfiguration configuration)
         {

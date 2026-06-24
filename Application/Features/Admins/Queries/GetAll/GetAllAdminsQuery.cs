@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.Features.Admins.Queries.GetAll
 {
-    public record GetAllAdminsQuery : IRequest<List<AdminUserResponseDTO>>;
+    public record GetAllAdminsQuery : IRequest<List<AdminUserResponseDto>>;
 }

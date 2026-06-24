@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Application.Features.Admins.Commands.Add
 {
-    public record AddAdminUserCommand : IRequest<AdminUserResponseDTO>
+    public record AddAdminUserCommand : IRequest<AdminUserResponseDto>
     {
-        public AdminUserRequestDTO AdminUserData { get; init; } = new();
+        public AdminUserRequestDto AdminUserData { get; init; } = new();
 
     }
 }

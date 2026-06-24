@@ -1,6 +1,6 @@
 ﻿using Application.DTO.Repayment;
-using Application.Features.Repayments.Commands;
-using Application.Features.Repayments.Queries;
+using Application.Features.Repayments.Commands.MakeRepayments;
+using Application.Features.Repayments.Queries.GetRepayments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

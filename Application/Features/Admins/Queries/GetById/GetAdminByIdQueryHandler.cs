@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.Admins.Queries.GetById
 {
-    public class GetAdminByIdQueryHandler: IRequestHandler<GetAdminByIdQuery, AdminUserResponseDTO>
+    public class GetAdminByIdQueryHandler: IRequestHandler<GetAdminByIdQuery, AdminUserResponseDto>
     {
         private readonly IAdminUserRepository _adminUserRepository;
         private readonly IMapper _mapper;
@@ -16,14 +16,14 @@ namespace Application.Features.Admins.Queries.GetById
             _mapper = mapper;
         }
 
-        public async Task<AdminUserResponseDTO> Handle(GetAdminByIdQuery request, CancellationToken cancellationToken)
+        public async Task<AdminUserResponseDto> Handle(GetAdminByIdQuery request, CancellationToken cancellationToken)
         {
             var adminUser = await _adminUserRepository.GetByIdAsync(request.AdminId);
             if (adminUser == null)
             {
                 throw new NotFoundException("Admin user not found.");
             }
-            return _mapper.Map<AdminUserResponseDTO>(adminUser);
+            return _mapper.Map<AdminUserResponseDto>(adminUser);
         }
     }
 }

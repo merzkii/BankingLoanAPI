@@ -2,13 +2,13 @@
 using Application.Interfaces;
 using MediatR;
 
-namespace Application.Features.Repayments.Queries
+namespace Application.Features.Repayments.Queries.GetRepayments
 {
-    public class GetRepaymentsQeryHandler : IRequestHandler<GetRepaymentsQuery, LoanRepaymentSummaryDto>
+    public class GetRepaymentsQueryHandler : IRequestHandler<GetRepaymentsQuery, LoanRepaymentSummaryDto>
     {
         private readonly ILoanService _loanService;
 
-        public GetRepaymentsQeryHandler(ILoanService loanService)
+        public GetRepaymentsQueryHandler(ILoanService loanService)
         {
             _loanService = loanService;
         }

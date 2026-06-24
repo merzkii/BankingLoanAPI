@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.Admins.Commands.Add
 {
-    public class AddAdminUserHandler: IRequestHandler<AddAdminUserCommand, AdminUserResponseDTO>
+    public class AddAdminUserHandler: IRequestHandler<AddAdminUserCommand, AdminUserResponseDto>
     {
         private readonly IAdminUserRepository _adminUserRepository;
         private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ namespace Application.Features.Admins.Commands.Add
             _mapper = mapper;
         }
 
-        public async Task<AdminUserResponseDTO> Handle(AddAdminUserCommand request, CancellationToken cancellationToken)
+        public async Task<AdminUserResponseDto> Handle(AddAdminUserCommand request, CancellationToken cancellationToken)
         {
             var newAdminUser = new AdminUsers
             {
@@ -30,7 +30,7 @@ namespace Application.Features.Admins.Commands.Add
 
             };
              await _adminUserRepository.AddAsync(newAdminUser);
-            return _mapper.Map<AdminUserResponseDTO>(newAdminUser);
+            return _mapper.Map<AdminUserResponseDto>(newAdminUser);
         }
     }
 }

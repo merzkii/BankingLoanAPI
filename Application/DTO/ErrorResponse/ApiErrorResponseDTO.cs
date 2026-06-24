@@ -1,6 +1,6 @@
 ﻿namespace Application.DTO.ErrorResponse
 {
-    public record ApiErrorResponseDTO(int StatusCode,
+    public record ApiErrorResponseDto(int StatusCode,
         string Message,
         string? Details = null
         );

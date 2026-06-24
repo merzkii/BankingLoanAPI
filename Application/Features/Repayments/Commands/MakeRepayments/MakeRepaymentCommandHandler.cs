@@ -2,7 +2,7 @@
 using Application.Interfaces;
 using MediatR;
 
-namespace Application.Features.Repayments.Commands
+namespace Application.Features.Repayments.Commands.MakeRepayments
 {
     public class MakeRepaymentCommandHandler : IRequestHandler<MakeRepaymentCommand, RepaymentResponseDto>
     {

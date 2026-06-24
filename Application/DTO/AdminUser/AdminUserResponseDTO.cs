@@ -2,7 +2,7 @@
 
 namespace Application.DTO.AdminUser
 {
-    public record AdminUserResponseDTO
+    public record AdminUserResponseDto
     {
         public int Id { get; set; }
         public string Name { get; init; } = string.Empty;

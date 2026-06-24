@@ -1,7 +1,7 @@
 ﻿using Application.DTO.Repayment;
 using MediatR;
 
-namespace Application.Features.Repayments.Commands
+namespace Application.Features.Repayments.Commands.MakeRepayments
 {
     public record MakeRepaymentCommand(
         int LoanId,

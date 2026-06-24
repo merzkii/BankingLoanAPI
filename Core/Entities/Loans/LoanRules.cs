@@ -1,5 +1,4 @@
 ﻿using Core.Enums;
-using System.Reflection.Metadata;
 
 namespace Core.Entities.Loans
 {

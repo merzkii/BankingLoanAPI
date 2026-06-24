@@ -39,8 +39,8 @@ namespace LoanAPI.Middlewares
                 };
 
                 var response = _env.IsDevelopment()
-                    ? new ApiErrorResponseDTO(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
-                    : new ApiErrorResponseDTO(context.Response.StatusCode, ex.Message);
+                    ? new ApiErrorResponseDto(context.Response.StatusCode, ex.Message, ex.StackTrace?.ToString())
+                    : new ApiErrorResponseDto(context.Response.StatusCode, ex.Message);
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
